@@ -1,6 +1,6 @@
 import ai from '@/common/lib/open-api';
 
-export const getInterviewResponse = async (prompt: string) => {
+export const getAICompletion = async (prompt: string) => {
   try {
     const response = await ai.chat.completions.create({
       model: 'gpt-4o',
@@ -17,7 +17,6 @@ export const getInterviewResponse = async (prompt: string) => {
       temperature: 0.5,
       max_tokens: 1000,
     });
-
     return response.choices[0].message.content;
   } catch (error) {
     console.error('Error getting interview response:', error);

@@ -1,17 +1,31 @@
-import { getInterviewResponse } from '@/services/interview-agent';
-import { addAgentResponse, addUserResponse, StartPrompt } from '@/services/prompt-builder';
+import { NextResponse } from 'next/server';
 
-export async function GET(request: Request) {}
+import { textToSpeech } from '@/services/text-to-speech';
+import { speechToText } from '@/services/speech-to-text';
+import { getAICompletion } from '@/services/interview-agent';
+import { addAgentResponse, addUserResponse, START_PROMPT, stripAgentTag } from '@/common/services/prompt-builder';
 
 export async function POST(request: Request) {
-  const { prompt } = await request.json();
-  let temp1 = addUserResponse(StartPrompt, "Hello, my name is ratnesh, I'm a CS grad");
-  let temp2 = addAgentResponse(
-    temp1,
-    'Thank you for the introduction, Ratnesh. As a recent computer science graduate, could you elaborate on any specific areas or technologies you focused on during your studies? For example, were there any particular programming languages, frameworks, or projects that you found particularly engaging or that you specialized in?'
-  );
+  const { data, context, isStart }: { data: string; context: string; isStart: boolean } = await request.json();
+  const audio = Buffer.from(data, 'base64');
+  const transcription = await speechToText(audio);
 
-  const response = await getInterviewResponse(addUserResponse(temp2, prompt));
-  console.log(response);
-  return new Response(response);
+  let prompt: string;
+  if (isStart) {
+    prompt = addUserResponse(START_PROMPT, transcription);
+  } else {
+    prompt = addUserResponse(context, transcription);
+  }
+  let response = await getAICompletion(prompt);
+  if (response) {
+    response = stripAgentTag(response);
+    const audioBuffer = await textToSpeech(response);
+    return new Response(
+      JSON.stringify({
+        data: audioBuffer.toString('base64'),
+        context: addAgentResponse(context, response),
+      })
+    );
+  }
+  return NextResponse.json({ error: 'No response from AI' }, { status: 400 });
 }
