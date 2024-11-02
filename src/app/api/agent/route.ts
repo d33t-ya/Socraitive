@@ -16,10 +16,12 @@ export async function POST(request: Request) {
   } else {
     prompt = addUserResponse(context, transcription);
   }
+
   let response = await getAICompletion(prompt);
   if (response) {
     response = stripAgentTag(response);
     const audioBuffer = await textToSpeech(response);
+
     return new Response(
       JSON.stringify({
         data: audioBuffer.toString('base64'),
@@ -27,5 +29,6 @@ export async function POST(request: Request) {
       })
     );
   }
+
   return NextResponse.json({ error: 'No response from AI' }, { status: 400 });
 }
