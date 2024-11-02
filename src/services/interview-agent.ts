@@ -1,13 +1,5 @@
 import ai from '@/common/lib/open-api';
 
-export const StartPrompt = `Interviewer: Hi, Can you introduce yourself?`;
-export function addUserResponse(prompt: string, userResponse: string) {
-  return prompt + `\nCandidate: ${userResponse}`;
-}
-export function addAgentResponse(prompt: string, agentResponse: string) {
-  return prompt + `\nInterviewer: ${agentResponse}`;
-}
-
 export const getInterviewResponse = async (prompt: string) => {
   try {
     const response = await ai.chat.completions.create({
@@ -25,6 +17,7 @@ export const getInterviewResponse = async (prompt: string) => {
       temperature: 0.5,
       max_tokens: 1000,
     });
+
     return response.choices[0].message.content;
   } catch (error) {
     console.error('Error getting interview response:', error);
