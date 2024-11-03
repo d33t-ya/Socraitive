@@ -3,10 +3,6 @@
 [PROJECT LINK](https://alias-apriora.vercel.app/)
 [Video Demo](https://drive.google.com/file/d/1kHunKLZFo0IEZz2rejqzprPTrhAvLiuj/view?usp=sharing)
 
-### Future Scope
-
-Here's how you could express your ideas about what you would do if you had more time, focusing on adding Zod for type safety, reducing latency, and improving user experience (UX):
-
 ### Current Workflow
 
 The application allows users to record their voice, which is converted to text using Speech-to-Text (STT). This text is then sent to the OpenAI API for processing, and the generated response is converted back to speech using Text-to-Speech (TTS) for the user to hear.
