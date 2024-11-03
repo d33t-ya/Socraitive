@@ -4,14 +4,15 @@ import { useEffect, useState } from 'react';
 import { Square } from 'lucide-react';
 import { AccentButton } from '@/common/components';
 import { useAudioRecorder } from 'react-audio-voice-recorder';
+
 import { AI } from './AI';
 import { Candidate } from './Candidate';
 import { InterviewEnd } from './InterviewEnd';
 import { InterviewStart } from './InterviewStart';
-import { InterviewHeader } from './InterviewHeader';
-import useSilenceDetection, { clearSilenceStartTime } from '@/common/hooks/useSilenceDetection';
-import { convertBlobToBase64 } from '@/common/lib/blob-to-base64';
 import { playAudio } from '@/common/lib/play-audio';
+import { InterviewHeader } from './InterviewHeader';
+import { convertBlobToBase64 } from '@/common/lib/blob-to-base64';
+import useSilenceDetection, { clearSilenceStartTime } from '@/common/hooks/useSilenceDetection';
 
 type InterviewStatus = 'notStarted' | 'ongoing' | 'ended';
 
@@ -41,6 +42,7 @@ export const Interview = () => {
     if (isRecording) stopRecording();
   };
 
+  // Call the agent API to interact with AI whilst handling the audio response and using the history of the conversation as context
   const callAgentAPI = async (isStart: boolean) => {
     if (!(recordingBlob instanceof Blob)) {
       console.error('Invalid recordingBlob:', recordingBlob);
@@ -82,6 +84,7 @@ export const Interview = () => {
     }
   };
 
+  // Check for silence detection & call the agent API (interact with AI)
   useEffect(() => {
     const handleSilence = async () => {
       if (isSilent && personTurnToSpeak) {
@@ -101,8 +104,10 @@ export const Interview = () => {
   return (
     <section className="flex w-full max-w-4xl flex-col rounded-lg bg-white px-4">
       <InterviewHeader />
+
       <div className="my-6 grid grid-cols-2 gap-4">
         <Candidate personSpeaking={personTurnToSpeak} />
+
         <div className="flex h-96 flex-col gap-4">
           {interviewStatus === 'ongoing' && <AI aiSpeaking={aiTurnToSpeak} />}
           {interviewStatus === 'ongoing' && (
@@ -111,6 +116,7 @@ export const Interview = () => {
               End Interview
             </AccentButton>
           )}
+
           {interviewStatus === 'notStarted' && (
             <InterviewStart
               setAISpeaking={setAITurnToSpeak}
@@ -119,6 +125,7 @@ export const Interview = () => {
               setInterviewStatus={setInterviewStatus}
             />
           )}
+
           {interviewStatus === 'ended' && <InterviewEnd setInterviewStatus={setInterviewStatus} />}
         </div>
       </div>

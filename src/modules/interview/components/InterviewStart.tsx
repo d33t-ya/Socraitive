@@ -4,9 +4,8 @@ import { AccentButton } from '@/common/components';
 import { textToSpeech } from '@/services/text-to-speech';
 import { clearSilenceStartTime } from '@/common/hooks/useSilenceDetection';
 
-// Hello, and welcome to your interview! My name is ALEX, and I’ll be guiding you through this interview process. To ensure a smooth and structured interview, there’s a 3-second pause rule. If you stop speaking for longer than 3 seconds, I will take it as the end of your response and move to the next question. So, please try to finish your thoughts within that timeframe to avoid interruptions. If you’re ready, let’s get started! ALL THE BEST!!!
-
-const AI_SPEECH_START = 'So, Please tell me something about yourself!';
+const AI_SPEECH_START =
+  'Hello, and welcome to your interview! My name is ALEX, and I’ll be guiding you through this interview process. To ensure a smooth and structured interview, there’s a 3-second pause rule. If you stop speaking for longer than 3 seconds, I will take it as the end of your response and move to the next question. If you’re ready, let’s get started! So, Please tell me something about yourself!';
 
 type InterviewStartProps = {
   startRecording: () => void;
@@ -28,6 +27,7 @@ export const InterviewStart = ({
     hearAIStart();
   };
 
+  // Play the AI's introduction speech
   const hearAIStart = async () => {
     window.localStorage.clear();
     localStorage.setItem('previousContext', 'Interviewer: ' + AI_SPEECH_START);

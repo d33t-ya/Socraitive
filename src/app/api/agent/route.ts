@@ -4,6 +4,7 @@ import { speechToText } from '@/services/speech-to-text';
 import { getAICompletion } from '@/services/interview-agent';
 import { addAgentResponse, addUserResponse, START_PROMPT, stripAgentTag } from '@/common/services/prompt-builder';
 
+// Take { data: string, context: string, isStart: boolean } from request body where data is base64 encoded audio, isStart is a boolean indicating if it's the first interaction and context is the history of the conversation
 export async function POST(request: Request) {
   try {
     let { data, context, isStart }: { data: string; context: string; isStart: boolean } = await request.json();

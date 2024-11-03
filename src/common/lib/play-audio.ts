@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 import { clearSilenceStartTime } from '../hooks/useSilenceDetection';
 
+// Play the audio response from the AI
 export const playAudio = (
   base64Audio: string,
   setAITurnToSpeak: Dispatch<SetStateAction<boolean>>,
