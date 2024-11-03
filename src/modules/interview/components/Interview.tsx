@@ -53,7 +53,7 @@ export const Interview = () => {
     const context = isFirstInteraction ? '' : localStorage.getItem('previousContext');
     setIsFirstInteraction(false);
 
-    const response = await fetch('http://localhost:3000/api/agent', {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/agent`, {
       method: 'POST',
       body: JSON.stringify({ data: base64Data, context, isStart }),
       headers: {
