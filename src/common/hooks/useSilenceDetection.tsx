@@ -3,7 +3,13 @@ import { useState, useEffect } from 'react';
 const MIN_DECIBELS = -45;
 const SILENCE_DURATION = 3000;
 
-export default function useSilenceDetection(isRecording: boolean): boolean {
+export default function useSilenceDetection(
+  isRecording: boolean,
+  stopRecording: () => void
+): {
+  isSilent: boolean;
+  setIsSilent: React.Dispatch<React.SetStateAction<boolean>>;
+} {
   const [isSilent, setIsSilent] = useState<boolean>(false);
 
   useEffect(() => {
@@ -37,6 +43,7 @@ export default function useSilenceDetection(isRecording: boolean): boolean {
               silenceStartTime = performance.now();
             } else if (performance.now() - silenceStartTime > SILENCE_DURATION) {
               setIsSilent(true);
+              stopRecording();
             }
           } else {
             silenceStartTime = null;
@@ -56,8 +63,9 @@ export default function useSilenceDetection(isRecording: boolean): boolean {
 
     return () => {
       // Cleanup any audio context or streams if necessary
+      // For example, close the audio context or stop the media stream if applicable
     };
   }, [isRecording]); // Add isRecording as a dependency
 
-  return isSilent;
+  return { isSilent, setIsSilent };
 }

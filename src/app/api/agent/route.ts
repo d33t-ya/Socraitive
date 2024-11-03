@@ -6,16 +6,9 @@ import { addAgentResponse, addUserResponse, START_PROMPT, stripAgentTag } from '
 
 export async function POST(request: Request) {
   try {
-    // Parse the incoming request data
     const { data, context, isStart }: { data: string; context: string; isStart: boolean } = await request.json();
 
-    // Log incoming data for debugging
     console.log('Incoming data:', { data, context, isStart });
-
-    // Validate input
-    if (!data || !context || typeof isStart !== 'boolean') {
-      return NextResponse.json({ error: 'Invalid input data' }, { status: 400 });
-    }
 
     // Ensure the base64 data is valid before decoding
     const base64Data = data.split(',')[1];
