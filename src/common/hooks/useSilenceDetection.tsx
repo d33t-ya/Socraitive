@@ -3,28 +3,34 @@ import { useState, useEffect } from 'react';
 const MIN_DECIBELS = -45;
 const SILENCE_DURATION = 3000;
 
-export default function useSilenceDetection() {
-  const [isSilent, setIsSilent] = useState(false);
+export default function useSilenceDetection(isRecording: boolean): boolean {
+  const [isSilent, setIsSilent] = useState<boolean>(false);
 
   useEffect(() => {
-    const handleSilenceDetection = async () => {
+    if (!isRecording) {
+      // If not recording, reset silence state and exit early
+      setIsSilent(false);
+      return;
+    }
+
+    const handleSilenceDetection = async (): Promise<void> => {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        const audioContext = new AudioContext();
-        const audioStreamSource = audioContext.createMediaStreamSource(stream);
-        const analyser = audioContext.createAnalyser();
+        const stream: MediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const audioContext: AudioContext = new AudioContext();
+        const audioStreamSource: MediaStreamAudioSourceNode = audioContext.createMediaStreamSource(stream);
+        const analyser: AnalyserNode = audioContext.createAnalyser();
         analyser.minDecibels = MIN_DECIBELS;
         audioStreamSource.connect(analyser);
 
-        const bufferLength = analyser.frequencyBinCount;
-        const domainData = new Uint8Array(bufferLength);
+        const bufferLength: number = analyser.frequencyBinCount;
+        const domainData: Uint8Array = new Uint8Array(bufferLength);
 
         let silenceStartTime: number | null = null;
 
-        const detectSound = () => {
+        const detectSound = (): void => {
           analyser.getByteFrequencyData(domainData);
 
-          const isCurrentlySilent = domainData.every((value) => value === 0);
+          const isCurrentlySilent: boolean = domainData.every((value) => value === 0);
 
           if (isCurrentlySilent) {
             if (silenceStartTime === null) {
@@ -51,7 +57,7 @@ export default function useSilenceDetection() {
     return () => {
       // Cleanup any audio context or streams if necessary
     };
-  }, []);
+  }, [isRecording]); // Add isRecording as a dependency
 
   return isSilent;
 }
