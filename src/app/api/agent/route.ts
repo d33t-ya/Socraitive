@@ -6,9 +6,7 @@ import { addAgentResponse, addUserResponse, START_PROMPT, stripAgentTag } from '
 
 export async function POST(request: Request) {
   try {
-    const { data, context, isStart }: { data: string; context: string; isStart: boolean } = await request.json();
-
-    console.log('Incoming data:', { data, context, isStart });
+    let { data, context, isStart }: { data: string; context: string; isStart: boolean } = await request.json();
 
     // Ensure the base64 data is valid before decoding
     const base64Data = data.split(',')[1];
@@ -23,8 +21,12 @@ export async function POST(request: Request) {
     const transcription = await speechToText(audio);
 
     // Prepare the prompt based on whether it's the start of a conversation
-    const prompt = isStart ? addUserResponse(START_PROMPT, transcription) : addUserResponse(context, transcription);
-
+    let prompt: string;
+    if (isStart) {
+      context = START_PROMPT;
+    }
+    prompt = addUserResponse(context, transcription);
+    context = addUserResponse(context, transcription);
     // Get AI response
     let response = await getAICompletion(prompt);
     if (response) {
