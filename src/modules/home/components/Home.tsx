@@ -20,7 +20,7 @@ export const Home = () => {
           <div className="flex flex-col items-start">
             <h2 className="text-lg font-semibold leading-tight">AI Interviewer</h2>
             <p className="text-sm text-muted-foreground">
-              Powered by&nbsp;<AccentText>Apriora</AccentText>
+              Powered by&nbsp;<AccentText>Socraitive</AccentText>
             </p>
           </div>
         </div>

@@ -1,6 +1,6 @@
-### **APRIORA TAKE HOME CHALLENGE**
+### **Socraitive - AI Powered voice-to-voice Interviewer**
 
-[PROJECT LINK](https://alias-apriora.vercel.app/)
+[PROJECT LINK](https://alias-socraitive.vercel.app/) and
 [Video Demo](https://drive.google.com/file/d/1kHunKLZFo0IEZz2rejqzprPTrhAvLiuj/view?usp=sharing)
 
 ### Current Workflow
@@ -9,20 +9,9 @@ The application allows users to record their voice, which is converted to text u
 
 `Voice Recording --> Speech-to-Text (STT) --> OpenAI API Call --> Generated Response --> Text-to-Speech (TTS) --> User Hears Response`
 
-### Future Improvements
-
-If I had more time, I would focus on the following enhancements
-
-1. **Proper end of the conversation**
-1. **Add Zod for Better Type Safety**
-1. **Make Better use of react states & optmize performance**
-1. **Reduce Latency**
-1. **Smoothing User Experience (UX)**
-1. **Implement the User Report along with transcripts & timestamps**
-
 ### Features
 
-- **Voice-Activated Dialogue (VAD):** Detects silence for automatic turn-taking.
+- **Voice-Activated Dialogue (VAD):** Uses a Voice Activity Detection (VAD) system that detects silence to enable automatic turn-taking, creating a natural conversational flow without the need for manual prompts.
 - **Speech-to-Text (STT) Integration:** Converts spoken answers into text for processing.
 - **Text-to-Speech (TTS) Responses:** AI-generated responses are played back via TTS.
 - **Smooth UI Components:** Built with tailwind, providing a clean, responsive user interface.
@@ -42,11 +31,3 @@ src
 ├── modules          # UI sections and specific components for different screens
 └── services         # External service integrations (e.g., TTS, STT)
 ```
-
-- My commits and comments are consistent and focused. I prioritized maintaining clarity in commit messages, particularly for significant feature changes, and aimed for clean code while balancing development speed. Frequent commits were made to ensure easy rollback and iteration.
-
-- The project architecture is designed for scalability and future extensibility. Using a modular folder structure (`src/commons`, `src/app`, `src/modules`, `src/services`) promotes code reuse and organization. This setup makes it easy to expand functionality or integrate new services as needed.
-
-- My initial focus was on implementing and testing the TTS, STT, and interview agent services via Postman. Once these components were functional, I shifted to building the UI and integrating it with the backend. Time management was challenging, especially with the complex Voice-Activated Dialogue (VAD) system. Detecting silence accurately required significant trial and error, but it was essential to achieving smooth voice interaction.
-
-- I thoroughly enjoyed this sprint, especially the engineering challenges that came with implementing a seamless voice interface. Solving the unknowns in real-time interaction was both fun and rewarding.

@@ -16,7 +16,7 @@ export const Footer: React.FunctionComponent = (): JSX.Element => {
         </Link>{' '}
         . The source code is available on &nbsp;
         <Link
-          href="https://github.com/Swanand-Wagh/Apriora"
+          href="https://github.com/Swanand-Wagh/Socraitive"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-3"
