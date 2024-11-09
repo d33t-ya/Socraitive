@@ -8,7 +8,7 @@ export const Header: React.FunctionComponent = (): JSX.Element => {
     <header className="sticky top-0 z-10 w-full border-border/40 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="max-w-screen-3xl flex h-14 items-center justify-between gap-8 px-12">
         <Link href="/" className="flex items-center gap-0.5 font-medium">
-          <AccentText>Socraitive</AccentText>&nbsp;Assignment
+          <AccentText>Socraitive</AccentText>&nbsp;
         </Link>
 
         <Link
