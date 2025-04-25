@@ -38,7 +38,7 @@ export const Home = () => {
           </p>
         </div>
 
-        <Link href="/interview" className={cn(accentButtonClassnames, 'mb-8 mt-6')}>
+        <Link href="/interview" className={cn(accentButtonClassnames, 'mb-8 mt-6 w-full')}>
           <PlayIcon className="mr-2 size-4" />
           Let&apos;s Get Started
         </Link>
@@ -75,7 +75,7 @@ export const Home = () => {
         </div>
 
         <Link
-          href="/therapy"
+          href="/therapist"
           className={cn(
             'mb-8 mt-6 inline-flex h-10 items-center justify-center rounded-md bg-[#4CAF50] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#3e8e41] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50'
           )}

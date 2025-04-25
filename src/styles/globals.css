@@ -356,3 +356,9 @@ button:disabled {
 ::-webkit-scrollbar-thumb {
   @apply rounded-[3px] border-2 border-neutral-300 bg-neutral-600 dark:bg-neutral-400;
 }
+
+@layer utilities {
+  .green-ring {
+    box-shadow: 0 0 0 8px #3e8e41;
+  }
+}
