@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-import { cn } from '@/features/landing/lib/utils';
+import { cn } from '@/lib/utils';
 import { ArrowLeftIcon, CircleCheckBig, PlayIcon } from 'lucide-react';
 import { AccentButton, accentButtonClassnames } from '@/components/custom';
 

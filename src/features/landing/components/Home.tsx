@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-import { cn } from '@/features/landing/lib/utils';
+import { cn } from '@/lib/utils';
 import { PersonIcon, PlayIcon, HeartFilledIcon } from '@radix-ui/react-icons';
 import { accentButtonClassnames, AccentText } from '@/components/custom';
 

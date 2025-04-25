@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { clearSilenceStartTime } from '../../../hooks/useSilenceDetection';
+import { clearSilenceStartTime } from '../hooks/useSilenceDetection';
 
 // Play the audio response from the AI
 export const playAudio = (
