@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { NextPage } from 'next';
-import { Home } from '@/modules/home';
-import { Header, Footer } from '@/common/components';
+import { Home } from '@/features/landing/components';
+import { Header, Footer } from '@/components/custom';
 
 const HomePage: NextPage = () => {
   return (

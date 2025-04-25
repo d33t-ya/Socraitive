@@ -1,8 +1,8 @@
 import React from 'react';
 import { PlayIcon } from 'lucide-react';
-import { AccentButton } from '@/common/components';
-import { textToSpeech } from '@/services/text-to-speech';
-import { clearSilenceStartTime } from '@/common/hooks/useSilenceDetection';
+import { AccentButton } from '@/components/custom';
+import { textToSpeech } from '@/features/interviewer/server/text-to-speech';
+import { clearSilenceStartTime } from '@/hooks/useSilenceDetection';
 
 const AI_SPEECH_START =
   'Hello, and welcome to your interview! My name is ALEX, and I’ll be guiding you through this interview process. To ensure a smooth and structured interview, there’s a 3-second pause rule. If you stop speaking for longer than 3 seconds, I will take it as the end of your response and move to the next question. If you’re ready, let’s get started! So, Please tell me something about yourself!';

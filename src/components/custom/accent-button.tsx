@@ -1,4 +1,4 @@
-import { cn } from '@/common/lib/utils';
+import { cn } from '@/features/landing/lib/utils';
 import React from 'react';
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -12,7 +12,7 @@ export const AccentButton: React.FunctionComponent<Readonly<Props>> = ({
   children,
   className,
   ...props
-}): JSX.Element => {
+}): React.ReactElement => {
   return (
     <button {...props} className={cn(accentButtonClassnames, className)}>
       {children}

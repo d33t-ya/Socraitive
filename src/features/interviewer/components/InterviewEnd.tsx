@@ -1,9 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 
-import { cn } from '@/common/lib/utils';
+import { cn } from '@/features/landing/lib/utils';
 import { ArrowLeftIcon, CircleCheckBig, PlayIcon } from 'lucide-react';
-import { AccentButton, accentButtonClassnames } from '@/common/components';
+import { AccentButton, accentButtonClassnames } from '@/components/custom';
 
 type InterviewEndProps = {
   setInterviewStatus: (status: 'notStarted' | 'ongoing' | 'ended') => void;

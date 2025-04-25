@@ -2,17 +2,17 @@
 
 import { useEffect, useState } from 'react';
 import { Square } from 'lucide-react';
-import { AccentButton } from '@/common/components';
+import { AccentButton } from '@/components/custom';
 import { useAudioRecorder } from 'react-audio-voice-recorder';
 
 import { AI } from './AI';
 import { Candidate } from './Candidate';
 import { InterviewEnd } from './InterviewEnd';
 import { InterviewStart } from './InterviewStart';
-import { playAudio } from '@/common/lib/play-audio';
+import { playAudio } from '@/features/landing/lib/play-audio';
 import { InterviewHeader } from './InterviewHeader';
-import { convertBlobToBase64 } from '@/common/lib/blob-to-base64';
-import useSilenceDetection, { clearSilenceStartTime } from '@/common/hooks/useSilenceDetection';
+import { convertBlobToBase64 } from '@/features/landing/lib/blob-to-base64';
+import useSilenceDetection, { clearSilenceStartTime } from '@/hooks/useSilenceDetection';
 
 type InterviewStatus = 'notStarted' | 'ongoing' | 'ended';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { cn } from '@/common/lib/utils';
+import { cn } from '@/features/landing/lib/utils';
 import { AudioLines, MicOff } from 'lucide-react';
 
 type AIProps = {

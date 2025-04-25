@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { NextPage } from 'next';
-import { Interview } from '@/modules/interview';
+import { Interview } from '@/features/interviewer/components';
 
 const InterviewPage: NextPage = () => {
   return (

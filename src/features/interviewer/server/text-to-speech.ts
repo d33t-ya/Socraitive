@@ -1,4 +1,4 @@
-import ai from '@/common/lib/open-api';
+import ai from '@/features/landing/lib/open-api';
 
 export const textToSpeech = async (text: string): Promise<Buffer> => {
   try {
