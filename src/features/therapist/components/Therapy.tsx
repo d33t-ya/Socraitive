@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from 'react';
 import { Square } from 'lucide-react';
 import { AccentButton } from '@/components/custom';
 import { vapi } from '@/lib/vapi.sdk';
-import { useRouter } from 'next/navigation';
 import { therapist } from '@/constants/therapy';
 
 import { AI } from './AI';
@@ -24,25 +23,22 @@ export enum CallStatus {
 }
 
 interface SavedMessage {
-  role: 'user' | 'assistant';
+  role: 'user' | 'ai';
   content: string;
 }
 
 export const Therapy = () => {
-  const router = useRouter();
   const [therapyStatus, setTherapyStatus] = useState<TherapyStatus>('notStarted');
   const [callStatus, setCallStatus] = useState<CallStatus>(CallStatus.INACTIVE);
   const [messages, setMessages] = useState<SavedMessage[]>([]);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [lastMessage, setLastMessage] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string>('');
-  const callAttempts = useRef(0);
 
   useEffect(() => {
     const onCallStart = () => {
       setCallStatus(CallStatus.ACTIVE);
       setTherapyStatus('ongoing');
-      // Reset error state on successful call
       setErrorMessage('');
     };
 
@@ -69,23 +65,8 @@ export const Therapy = () => {
       setIsSpeaking(false);
     };
 
-    const onError = (error: any) => {
+    const onError = (error: Error) => {
       console.log('Error:', error);
-
-      // Handle meeting ended error specifically
-      if (error?.msg === 'Meeting has ended' || error?.errorMsg === 'Meeting has ended') {
-        console.log('Meeting ended error detected');
-        setCallStatus(CallStatus.FINISHED);
-        setTherapyStatus('ended');
-        setIsSpeaking(false);
-        return;
-      }
-
-      // For other errors
-      setErrorMessage(error?.message || error?.msg || error?.errorMsg || 'An error occurred with the therapy session');
-      setCallStatus(CallStatus.ERROR);
-      setTherapyStatus('error');
-      setIsSpeaking(false);
     };
 
     vapi.on('call-start', onCallStart);
@@ -105,30 +86,11 @@ export const Therapy = () => {
     };
   }, []);
 
-  useEffect(() => {
-    if (messages.length > 0) {
-      setLastMessage(messages[messages.length - 1].content);
-    }
-  }, [messages]);
-
   const handleCall = async () => {
-    setCallStatus(CallStatus.CONNECTING);
-    callAttempts.current += 1;
-
     try {
-      // Clean up any previous sessions first
-      try {
-        await vapi.stop();
-      } catch (e) {
-        // Ignore errors when stopping previous sessions
-        console.log('Error stopping previous session, continuing...');
-      }
+      setCallStatus(CallStatus.CONNECTING);
 
-      // Small delay to ensure previous session is fully stopped
-      await new Promise((resolve) => setTimeout(resolve, 500));
-
-      // Start new session
-      await vapi.start(therapist, {
+      await vapi.start(process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID!, {
         variableValues: {
           userName: 'Swanand Wagh',
         },
@@ -142,22 +104,18 @@ export const Therapy = () => {
   };
 
   const handleRetry = () => {
-    // Reset states for retry
     setCallStatus(CallStatus.INACTIVE);
     setTherapyStatus('notStarted');
     setErrorMessage('');
-    // Don't reset messages to preserve conversation
   };
 
   const handleDisconnect = () => {
-    try {
-      vapi.stop();
-    } catch (e) {
-      console.error('Error stopping call:', e);
-    }
     setCallStatus(CallStatus.FINISHED);
-    setTherapyStatus('ended');
+    vapi.stop();
   };
+
+  const latestMessage = messages[messages.length - 1]?.content || '';
+  const isCallInactiveOrFinished = callStatus === CallStatus.ACTIVE || callStatus === CallStatus.FINISHED;
 
   return (
     <section className="flex w-full max-w-4xl flex-col rounded-lg bg-white px-4">
@@ -168,7 +126,7 @@ export const Therapy = () => {
 
         <div className="flex h-96 flex-col gap-4">
           {therapyStatus === 'ongoing' && (
-            <AI isSpeaking={isSpeaking && messages.length > 0 && messages[messages.length - 1].role === 'assistant'} />
+            <AI isSpeaking={isSpeaking && messages.length > 0 && messages[messages.length - 1].role === 'ai'} />
           )}
           {therapyStatus === 'ongoing' && (
             <div className="flex flex-col gap-2">

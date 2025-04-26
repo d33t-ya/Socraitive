@@ -25,9 +25,7 @@ export const TherapyStart = ({ callStatus, handleCall }: TherapyStartProps) => {
         disabled={isConnecting}
       >
         {isConnecting ? (
-          <>
-            <span className="animate-pulse">Connecting...</span>
-          </>
+          <span className="animate-pulse">Connecting...</span>
         ) : (
           <>
             <PlayIcon className="mr-2 size-4" />
