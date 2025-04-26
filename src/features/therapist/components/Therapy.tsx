@@ -32,7 +32,6 @@ export const Therapy = () => {
   const [callStatus, setCallStatus] = useState<CallStatus>(CallStatus.INACTIVE);
   const [messages, setMessages] = useState<SavedMessage[]>([]);
   const [isSpeaking, setIsSpeaking] = useState(false);
-  const [lastMessage, setLastMessage] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [callId, setCallId] = useState<string>('');
   const [analysisData, setAnalysisData] = useState<any>(null);
@@ -105,7 +104,10 @@ export const Therapy = () => {
 
     const onSpeechStart = () => {
       console.log('speech start');
-      setIsSpeaking(true);
+      if (messages.length > 0 && messages[messages.length - 1]?.role === 'ai') {
+      } else {
+        setIsSpeaking(true);
+      }
     };
 
     const onSpeechEnd = () => {
@@ -132,7 +134,7 @@ export const Therapy = () => {
       vapi.off('speech-end', onSpeechEnd);
       vapi.off('error', onError);
     };
-  }, [callId]);
+  }, [callId, messages]);
 
   const handleCall = async () => {
     try {
@@ -198,19 +200,12 @@ export const Therapy = () => {
         <FeedbackReport analysisData={analysisData} onBack={handleBackFromReport} />
       ) : (
         <div className="my-6 grid grid-cols-2 gap-4">
-          <Patient isSpeaking={isSpeaking && messages.length > 0 && messages[messages.length - 1]?.role === 'user'} />
+          <Patient isSpeaking={!isSpeaking && therapyStatus === 'ongoing'} />
 
           <div className="flex h-96 flex-col gap-4">
-            {therapyStatus === 'ongoing' && (
-              <AI isSpeaking={isSpeaking && messages.length > 0 && messages[messages.length - 1]?.role === 'ai'} />
-            )}
+            {therapyStatus === 'ongoing' && <AI isSpeaking={isSpeaking} />}
             {therapyStatus === 'ongoing' && (
               <div className="flex flex-col gap-2">
-                {lastMessage && (
-                  <div className="max-h-24 overflow-y-auto rounded bg-gray-100 p-2 text-sm">
-                    <p>{lastMessage}</p>
-                  </div>
-                )}
                 <AccentButton className="w-full bg-red-700" onClick={handleDisconnect}>
                   <Square className="mr-2 size-4" />
                   End Session
@@ -236,13 +231,15 @@ export const Therapy = () => {
                           View Your Report
                         </AccentButton>
                       )}
-                      <AccentButton
-                        className="w-full border border-[#4CAF50] bg-white text-[#4CAF50] hover:bg-green-50"
-                        onClick={handleFetchAnalysis}
-                        disabled={isFetchingAnalysis}
-                      >
-                        {analysisData ? 'Refresh Analysis Data' : 'Fetch Analysis Data'}
-                      </AccentButton>
+                      {!analysisData && (
+                        <AccentButton
+                          className="w-full border border-[#4CAF50] bg-white text-[#4CAF50] hover:bg-green-50"
+                          onClick={handleFetchAnalysis}
+                          disabled={isFetchingAnalysis}
+                        >
+                          Fetch Analysis Data
+                        </AccentButton>
+                      )}
                     </>
                   )}
                 </div>

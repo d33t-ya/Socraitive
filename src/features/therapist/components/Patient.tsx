@@ -10,8 +10,9 @@ type PatientProps = {
 export const Patient = ({ isSpeaking }: PatientProps) => {
   return (
     <div
-      className={cn('border-4border-[#4CAF50] relative flex items-center justify-center rounded-lg bg-[#4CAF50]', {
+      className={cn('relative flex items-center justify-center rounded-lg border-4 bg-[#4CAF50]', {
         'border-[#3e8e41]': isSpeaking,
+        'border-[#4CAF50]': !isSpeaking,
       })}
     >
       <span

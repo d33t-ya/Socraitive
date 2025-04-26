@@ -11,10 +11,8 @@ export const AI = ({ isSpeaking }: AIProps) => {
   return (
     <div
       className={cn(
-        'relative flex flex-1 items-center justify-center rounded-lg border-4 border-[#4CAF50] bg-[#4CAF50]',
-        {
-          'border-[#3e8e41]': isSpeaking,
-        }
+        'relative flex flex-1 items-center justify-center rounded-lg border-4',
+        isSpeaking ? 'border-[#3e8e41] bg-[#4CAF50]' : 'border-[#4CAF50] bg-[#4CAF50]'
       )}
     >
       <span
