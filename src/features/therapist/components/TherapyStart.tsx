@@ -3,6 +3,7 @@ import { PlayIcon } from 'lucide-react';
 import { AccentButton } from '@/components/custom';
 import { cn } from '@/lib/utils';
 import { CallStatus } from './Therapy';
+import { HeartFilledIcon } from '@radix-ui/react-icons';
 
 type TherapyStartProps = {
   callStatus: CallStatus;
@@ -28,7 +29,7 @@ export const TherapyStart = ({ callStatus, handleCall }: TherapyStartProps) => {
           <span className="animate-pulse">Connecting...</span>
         ) : (
           <>
-            <PlayIcon className="mr-2 size-4" />
+            <HeartFilledIcon className="mr-2 size-4" />
             Start Session
           </>
         )}

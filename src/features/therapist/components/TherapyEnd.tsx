@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { ArrowLeftIcon, CircleCheckBig, PlayIcon } from 'lucide-react';
 import { AccentButton, accentButtonClassnames } from '@/components/custom';
+import { HeartFilledIcon } from '@radix-ui/react-icons';
 
 type TherapyEndProps = {
   setTherapyStatus: (status: 'notStarted' | 'ongoing' | 'ended') => void;
@@ -23,7 +24,7 @@ export const TherapyEnd = ({ setTherapyStatus }: TherapyEndProps) => {
       </p>
 
       <AccentButton className="mt-6 w-full bg-[#4CAF50] hover:bg-[#3e8e41]" onClick={handleStartNewSession}>
-        <PlayIcon className="mr-2 size-4" />
+        <HeartFilledIcon className="mr-2 size-4" />
         Start New Session
       </AccentButton>
       <Link href="/" className={cn(accentButtonClassnames, 'mt-2 w-full bg-[#2e7d32]')}>

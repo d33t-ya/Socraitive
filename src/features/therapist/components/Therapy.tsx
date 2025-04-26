@@ -45,6 +45,7 @@ export const Therapy = () => {
       setCallStatus(CallStatus.FINISHED);
       setTherapyStatus('ended');
       setIsSpeaking(false);
+      handleDisconnect();
     };
 
     const onMessage = (message: any) => {
@@ -89,9 +90,9 @@ export const Therapy = () => {
     try {
       setCallStatus(CallStatus.CONNECTING);
 
-      const call = await vapi.start(process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID!, {
+      const call = await vapi.start(process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID, {
         variableValues: {
-          userName: 'Swanand Wagh',
+          userName: 'Honey',
         },
       });
       console.log('CALL DATA:', call);
