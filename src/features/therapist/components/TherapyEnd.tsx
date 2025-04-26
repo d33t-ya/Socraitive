@@ -11,7 +11,6 @@ type TherapyEndProps = {
 
 export const TherapyEnd = ({ setTherapyStatus }: TherapyEndProps) => {
   const handleStartNewSession = () => {
-    // Reset to not started to prepare for a new session
     setTherapyStatus('notStarted');
   };
 

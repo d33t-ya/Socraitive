@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from 'react';
 import { Square } from 'lucide-react';
 import { AccentButton } from '@/components/custom';
 import { vapi } from '@/lib/vapi.sdk';
-import { therapist } from '@/constants/therapy';
 
 import { AI } from './AI';
 import { Patient } from './Patient';
@@ -113,9 +112,6 @@ export const Therapy = () => {
     setCallStatus(CallStatus.FINISHED);
     vapi.stop();
   };
-
-  const latestMessage = messages[messages.length - 1]?.content || '';
-  const isCallInactiveOrFinished = callStatus === CallStatus.ACTIVE || callStatus === CallStatus.FINISHED;
 
   return (
     <section className="flex w-full max-w-4xl flex-col rounded-lg bg-white px-4">

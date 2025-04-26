@@ -2,7 +2,7 @@ import { generateText } from 'ai';
 import { google } from '@ai-sdk/google';
 
 /**
- * POST /api/vapi/generate
+ * POST /api/therapist/start-session
  * Request body: { focus: string; approach?: string; amount: number; language?: string }
  * Response: { success: boolean; prompts?: string[] }
  */
