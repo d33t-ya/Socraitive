@@ -89,11 +89,12 @@ export const Therapy = () => {
     try {
       setCallStatus(CallStatus.CONNECTING);
 
-      await vapi.start(process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID!, {
+      const call = await vapi.start(process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID!, {
         variableValues: {
           userName: 'Swanand Wagh',
         },
       });
+      console.log('CALL DATA:', call);
     } catch (error: any) {
       console.error('Error starting therapy session:', error);
       setErrorMessage(error?.message || error?.msg || error?.errorMsg || 'Failed to start therapy session');
