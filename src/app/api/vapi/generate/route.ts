@@ -7,15 +7,17 @@ import { google } from '@ai-sdk/google';
  * Response: { success: boolean; prompts?: string[] }
  */
 export async function POST(request: Request) {
-  const { focus, language = 'english' } = await request.json();
+  const { reason, mood, desire, language = 'english' } = await request.json();
 
   try {
     const { text: promptsRaw } = await generateText({
       model: google('gemini-2.0-flash-001'),
       prompt: `
         You are a compassionate therapist preparing reflective, open‑ended questions for a counselling session.
-        Client's primary concern: ${focus}.
+        Client's primary reason of why he need's therapy: ${reason}.
         Therapeutic approach preference: extremely supportive.
+        Client's mood: ${mood}.
+        Client's desire: ${desire}.
         Language: ${language}. 
       
         Please return only the questions, without any additional text.

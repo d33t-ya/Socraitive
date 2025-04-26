@@ -1,25 +1,16 @@
 import React from 'react';
 import { PlayIcon } from 'lucide-react';
 import { AccentButton } from '@/components/custom';
+import { cn } from '@/lib/utils';
+import { CallStatus } from './Therapy';
 
 type TherapyStartProps = {
-  startRecording: () => void;
-  setAISpeaking: (speaking: boolean) => void;
-  setPersonSpeaking: (speaking: boolean) => void;
-  setTherapyStatus: (status: 'notStarted' | 'ongoing' | 'ended') => void;
+  callStatus: CallStatus;
+  handleCall: () => Promise<void>;
 };
 
-export const TherapyStart = ({
-  setAISpeaking,
-  startRecording,
-  setPersonSpeaking,
-  setTherapyStatus,
-}: TherapyStartProps) => {
-  const handleStartTherapy = () => {
-    setAISpeaking(true);
-    setPersonSpeaking(false);
-    setTherapyStatus('ongoing');
-  };
+export const TherapyStart = ({ callStatus, handleCall }: TherapyStartProps) => {
+  const isConnecting = callStatus === CallStatus.CONNECTING;
 
   return (
     <div className="my-auto flex flex-col items-center gap-4">
@@ -28,9 +19,21 @@ export const TherapyStart = ({
         Ensure your microphone is enabled for the best experience.
       </p>
 
-      <AccentButton className="mt-2 w-full bg-[#4CAF50] hover:bg-[#3e8e41]" onClick={handleStartTherapy}>
-        <PlayIcon className="mr-2 size-4" />
-        Start Session
+      <AccentButton
+        className={cn('mt-2 w-full bg-[#4CAF50] hover:bg-[#3e8e41]', isConnecting && 'pointer-events-none opacity-75')}
+        onClick={handleCall}
+        disabled={isConnecting}
+      >
+        {isConnecting ? (
+          <>
+            <span className="animate-pulse">Connecting...</span>
+          </>
+        ) : (
+          <>
+            <PlayIcon className="mr-2 size-4" />
+            Start Session
+          </>
+        )}
       </AccentButton>
     </div>
   );

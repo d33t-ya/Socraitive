@@ -10,6 +10,11 @@ type TherapyEndProps = {
 };
 
 export const TherapyEnd = ({ setTherapyStatus }: TherapyEndProps) => {
+  const handleStartNewSession = () => {
+    // Reset to not started to prepare for a new session
+    setTherapyStatus('notStarted');
+  };
+
   return (
     <div className="my-auto flex flex-col items-center">
       <CircleCheckBig className="size-24 text-[#4CAF50]" />
@@ -18,10 +23,7 @@ export const TherapyEnd = ({ setTherapyStatus }: TherapyEndProps) => {
         Thank you for participating in this therapy session. We hope it was beneficial for your mental wellness.
       </p>
 
-      <AccentButton
-        className="mt-6 w-full bg-[#4CAF50] hover:bg-[#3e8e41]"
-        onClick={() => setTherapyStatus('notStarted')}
-      >
+      <AccentButton className="mt-6 w-full bg-[#4CAF50] hover:bg-[#3e8e41]" onClick={handleStartNewSession}>
         <PlayIcon className="mr-2 size-4" />
         Start New Session
       </AccentButton>

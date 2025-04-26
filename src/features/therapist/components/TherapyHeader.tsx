@@ -6,7 +6,7 @@ import { PersonIcon } from '@radix-ui/react-icons';
 
 export const TherapyHeader = () => {
   return (
-    <header className="flex items-center justify-between gap-8 py-3">
+    <header className="flex items-center justify-between gap-8 py-3" suppressHydrationWarning>
       <Link href="/" className="flex items-center gap-1 rounded-2xl bg-[#4CAF50] px-3 py-1 text-sm text-white">
         <ArrowLeftIcon className="size-4" />
         Back to Home

@@ -6,7 +6,7 @@ export const mappings = {};
 export const therapist: CreateAssistantDTO = {
   name: 'Therapist',
   firstMessage:
-    "Hello, I'm glad you've reached out. This is a safe, confidential space—feel free to share whatever's on your mind and we'll explore it together.",
+    "Hello, I’m Emma—I’m really glad you reached out and I want you to know this is a safe, confidential space where you can speak freely about whatever is on your mind. I understand that meeting an AI therapist can feel a little nerve-racking, so we’ll move at a pace that’s comfortable for you and focus on helping you feel heard and supported from the very start. I will be asking you a couple of questions to understand what you're going through!",
   transcriber: {
     provider: 'deepgram',
     model: 'nova-2',

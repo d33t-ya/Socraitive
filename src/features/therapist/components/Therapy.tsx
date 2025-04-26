@@ -1,9 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Square } from 'lucide-react';
 import { AccentButton } from '@/components/custom';
-import { useAudioRecorder } from 'react-audio-voice-recorder';
+import { vapi } from '@/lib/vapi.sdk';
+import { useRouter } from 'next/navigation';
+import { therapist } from '@/constants/therapy';
 
 import { AI } from './AI';
 import { Patient } from './Patient';
@@ -11,19 +13,150 @@ import { TherapyEnd } from './TherapyEnd';
 import { TherapyStart } from './TherapyStart';
 import { TherapyHeader } from './TherapyHeader';
 
-type TherapyStatus = 'notStarted' | 'ongoing' | 'ended';
+type TherapyStatus = 'notStarted' | 'ongoing' | 'ended' | 'error';
+
+export enum CallStatus {
+  INACTIVE = 'INACTIVE',
+  CONNECTING = 'CONNECTING',
+  ACTIVE = 'ACTIVE',
+  FINISHED = 'FINISHED',
+  ERROR = 'ERROR',
+}
+
+interface SavedMessage {
+  role: 'user' | 'assistant';
+  content: string;
+}
 
 export const Therapy = () => {
-  const { startRecording, stopRecording } = useAudioRecorder();
-
-  const [aiTurnToSpeak, setAITurnToSpeak] = useState<boolean>(false);
-  const [personTurnToSpeak, setPersonTurnToSpeak] = useState<boolean>(false);
+  const router = useRouter();
   const [therapyStatus, setTherapyStatus] = useState<TherapyStatus>('notStarted');
+  const [callStatus, setCallStatus] = useState<CallStatus>(CallStatus.INACTIVE);
+  const [messages, setMessages] = useState<SavedMessage[]>([]);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [lastMessage, setLastMessage] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const callAttempts = useRef(0);
 
-  const handleEndTherapy = () => {
+  useEffect(() => {
+    const onCallStart = () => {
+      setCallStatus(CallStatus.ACTIVE);
+      setTherapyStatus('ongoing');
+      // Reset error state on successful call
+      setErrorMessage('');
+    };
+
+    const onCallEnd = () => {
+      setCallStatus(CallStatus.FINISHED);
+      setTherapyStatus('ended');
+      setIsSpeaking(false);
+    };
+
+    const onMessage = (message: any) => {
+      if (message.type === 'transcript' && message.transcriptType === 'final') {
+        const newMessage = { role: message.role, content: message.transcript };
+        setMessages((prev) => [...prev, newMessage]);
+      }
+    };
+
+    const onSpeechStart = () => {
+      console.log('speech start');
+      setIsSpeaking(true);
+    };
+
+    const onSpeechEnd = () => {
+      console.log('speech end');
+      setIsSpeaking(false);
+    };
+
+    const onError = (error: any) => {
+      console.log('Error:', error);
+
+      // Handle meeting ended error specifically
+      if (error?.msg === 'Meeting has ended' || error?.errorMsg === 'Meeting has ended') {
+        console.log('Meeting ended error detected');
+        setCallStatus(CallStatus.FINISHED);
+        setTherapyStatus('ended');
+        setIsSpeaking(false);
+        return;
+      }
+
+      // For other errors
+      setErrorMessage(error?.message || error?.msg || error?.errorMsg || 'An error occurred with the therapy session');
+      setCallStatus(CallStatus.ERROR);
+      setTherapyStatus('error');
+      setIsSpeaking(false);
+    };
+
+    vapi.on('call-start', onCallStart);
+    vapi.on('call-end', onCallEnd);
+    vapi.on('message', onMessage);
+    vapi.on('speech-start', onSpeechStart);
+    vapi.on('speech-end', onSpeechEnd);
+    vapi.on('error', onError);
+
+    return () => {
+      vapi.off('call-start', onCallStart);
+      vapi.off('call-end', onCallEnd);
+      vapi.off('message', onMessage);
+      vapi.off('speech-start', onSpeechStart);
+      vapi.off('speech-end', onSpeechEnd);
+      vapi.off('error', onError);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (messages.length > 0) {
+      setLastMessage(messages[messages.length - 1].content);
+    }
+  }, [messages]);
+
+  const handleCall = async () => {
+    setCallStatus(CallStatus.CONNECTING);
+    callAttempts.current += 1;
+
+    try {
+      // Clean up any previous sessions first
+      try {
+        await vapi.stop();
+      } catch (e) {
+        // Ignore errors when stopping previous sessions
+        console.log('Error stopping previous session, continuing...');
+      }
+
+      // Small delay to ensure previous session is fully stopped
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      // Start new session
+      await vapi.start(therapist, {
+        variableValues: {
+          userName: 'Swanand Wagh',
+        },
+      });
+    } catch (error: any) {
+      console.error('Error starting therapy session:', error);
+      setErrorMessage(error?.message || error?.msg || error?.errorMsg || 'Failed to start therapy session');
+      setCallStatus(CallStatus.ERROR);
+      setTherapyStatus('error');
+    }
+  };
+
+  const handleRetry = () => {
+    // Reset states for retry
+    setCallStatus(CallStatus.INACTIVE);
+    setTherapyStatus('notStarted');
+    setErrorMessage('');
+    // Don't reset messages to preserve conversation
+  };
+
+  const handleDisconnect = () => {
+    try {
+      vapi.stop();
+    } catch (e) {
+      console.error('Error stopping call:', e);
+    }
+    setCallStatus(CallStatus.FINISHED);
     setTherapyStatus('ended');
-    setAITurnToSpeak(false);
-    setPersonTurnToSpeak(false);
   };
 
   return (
@@ -31,27 +164,42 @@ export const Therapy = () => {
       <TherapyHeader />
 
       <div className="my-6 grid grid-cols-2 gap-4">
-        <Patient personSpeaking={personTurnToSpeak} />
+        <Patient isSpeaking={isSpeaking && messages.length > 0 && messages[messages.length - 1].role === 'user'} />
 
         <div className="flex h-96 flex-col gap-4">
-          {therapyStatus === 'ongoing' && <AI aiSpeaking={aiTurnToSpeak} />}
           {therapyStatus === 'ongoing' && (
-            <AccentButton className="w-full bg-red-700" onClick={handleEndTherapy}>
-              <Square className="mr-2 size-4" />
-              End Session
-            </AccentButton>
+            <AI isSpeaking={isSpeaking && messages.length > 0 && messages[messages.length - 1].role === 'assistant'} />
+          )}
+          {therapyStatus === 'ongoing' && (
+            <div className="flex flex-col gap-2">
+              {lastMessage && (
+                <div className="max-h-24 overflow-y-auto rounded bg-gray-100 p-2 text-sm">
+                  <p>{lastMessage}</p>
+                </div>
+              )}
+              <AccentButton className="w-full bg-red-700" onClick={handleDisconnect}>
+                <Square className="mr-2 size-4" />
+                End Session
+              </AccentButton>
+            </div>
           )}
 
-          {therapyStatus === 'notStarted' && (
-            <TherapyStart
-              setAISpeaking={setAITurnToSpeak}
-              startRecording={startRecording}
-              setPersonSpeaking={setPersonTurnToSpeak}
-              setTherapyStatus={setTherapyStatus}
-            />
-          )}
+          {therapyStatus === 'notStarted' && <TherapyStart callStatus={callStatus} handleCall={handleCall} />}
 
           {therapyStatus === 'ended' && <TherapyEnd setTherapyStatus={setTherapyStatus} />}
+
+          {therapyStatus === 'error' && (
+            <div className="my-auto flex flex-col items-center gap-4">
+              <div className="rounded-md bg-red-50 p-4">
+                <p className="text-center text-red-700">
+                  {errorMessage || 'An error occurred with the therapy session'}
+                </p>
+              </div>
+              <AccentButton className="mt-2 w-full bg-[#4CAF50] hover:bg-[#3e8e41]" onClick={handleRetry}>
+                Retry Connection
+              </AccentButton>
+            </div>
+          )}
         </div>
       </div>
     </section>
