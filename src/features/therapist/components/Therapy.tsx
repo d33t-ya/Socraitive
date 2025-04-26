@@ -1,17 +1,18 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import { Square } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Square, FileText } from 'lucide-react';
 import { AccentButton } from '@/components/custom';
-import { vapi } from '@/lib/vapi.sdk';
+import { vapi, vapiToken } from '@/lib/vapi.sdk';
 
 import { AI } from './AI';
 import { Patient } from './Patient';
 import { TherapyEnd } from './TherapyEnd';
 import { TherapyStart } from './TherapyStart';
 import { TherapyHeader } from './TherapyHeader';
+import { FeedbackReport } from './FeedbackReport';
 
-type TherapyStatus = 'notStarted' | 'ongoing' | 'ended' | 'error';
+type TherapyStatus = 'notStarted' | 'ongoing' | 'ended' | 'error' | 'report';
 
 export enum CallStatus {
   INACTIVE = 'INACTIVE',
@@ -33,6 +34,44 @@ export const Therapy = () => {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [lastMessage, setLastMessage] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string>('');
+  const [callId, setCallId] = useState<string>('');
+  const [analysisData, setAnalysisData] = useState<any>(null);
+  const [isFetchingAnalysis, setIsFetchingAnalysis] = useState(false);
+
+  const fetchCallData = async (id: string) => {
+    if (!id) {
+      console.log('No call ID to fetch');
+      return;
+    }
+
+    setIsFetchingAnalysis(true);
+    try {
+      const response = await fetch(`https://api.vapi.ai/call/${id}`, {
+        headers: {
+          Authorization: `Bearer ${vapiToken}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`API call failed: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log('Call data retrieved:', data);
+
+      // Check if analysis data exists and log it
+      if (data?.analysis?.structuredData) {
+        console.log('ANALYSIS STRUCTURED DATA:', data.analysis.structuredData);
+        setAnalysisData(data.analysis.structuredData);
+      }
+
+      return data;
+    } catch (error) {
+      console.error('Error fetching call data:', error);
+    } finally {
+      setIsFetchingAnalysis(false);
+    }
+  };
 
   useEffect(() => {
     const onCallStart = () => {
@@ -41,10 +80,19 @@ export const Therapy = () => {
       setErrorMessage('');
     };
 
-    const onCallEnd = () => {
+    const onCallEnd = async (data?: any) => {
+      console.log('Call ended:', data);
       setCallStatus(CallStatus.FINISHED);
       setTherapyStatus('ended');
       setIsSpeaking(false);
+
+      if (callId) {
+        console.log(`Will fetch analysis data for call ${callId} after delay`);
+        setTimeout(() => {
+          fetchCallData(callId);
+        }, 5000);
+      }
+
       handleDisconnect();
     };
 
@@ -65,7 +113,7 @@ export const Therapy = () => {
       setIsSpeaking(false);
     };
 
-    const onError = (error: Error) => {
+    const onError = (error: any) => {
       console.log('Error:', error);
     };
 
@@ -84,7 +132,7 @@ export const Therapy = () => {
       vapi.off('speech-end', onSpeechEnd);
       vapi.off('error', onError);
     };
-  }, []);
+  }, [callId]);
 
   const handleCall = async () => {
     try {
@@ -96,6 +144,11 @@ export const Therapy = () => {
         },
       });
       console.log('CALL DATA:', call);
+
+      if (call && call.id) {
+        console.log('Setting call ID:', call.id);
+        setCallId(call.id);
+      }
     } catch (error: any) {
       console.error('Error starting therapy session:', error);
       setErrorMessage(error?.message || error?.msg || error?.errorMsg || 'Failed to start therapy session');
@@ -108,6 +161,8 @@ export const Therapy = () => {
     setCallStatus(CallStatus.INACTIVE);
     setTherapyStatus('notStarted');
     setErrorMessage('');
+    setCallId('');
+    setAnalysisData(null);
   };
 
   const handleDisconnect = () => {
@@ -115,49 +170,100 @@ export const Therapy = () => {
     vapi.stop();
   };
 
+  const handleFetchAnalysis = () => {
+    if (callId) {
+      fetchCallData(callId);
+    } else {
+      console.log('No call ID available to fetch analysis data');
+    }
+  };
+
+  const handleViewReport = () => {
+    if (analysisData) {
+      setTherapyStatus('report');
+    } else {
+      handleFetchAnalysis();
+    }
+  };
+
+  const handleBackFromReport = () => {
+    setTherapyStatus('ended');
+  };
+
   return (
     <section className="flex w-full max-w-4xl flex-col rounded-lg bg-white px-4">
       <TherapyHeader />
 
-      <div className="my-6 grid grid-cols-2 gap-4">
-        <Patient isSpeaking={isSpeaking && messages.length > 0 && messages[messages.length - 1].role === 'user'} />
+      {therapyStatus === 'report' ? (
+        <FeedbackReport analysisData={analysisData} onBack={handleBackFromReport} />
+      ) : (
+        <div className="my-6 grid grid-cols-2 gap-4">
+          <Patient isSpeaking={isSpeaking && messages.length > 0 && messages[messages.length - 1]?.role === 'user'} />
 
-        <div className="flex h-96 flex-col gap-4">
-          {therapyStatus === 'ongoing' && (
-            <AI isSpeaking={isSpeaking && messages.length > 0 && messages[messages.length - 1].role === 'ai'} />
-          )}
-          {therapyStatus === 'ongoing' && (
-            <div className="flex flex-col gap-2">
-              {lastMessage && (
-                <div className="max-h-24 overflow-y-auto rounded bg-gray-100 p-2 text-sm">
-                  <p>{lastMessage}</p>
-                </div>
-              )}
-              <AccentButton className="w-full bg-red-700" onClick={handleDisconnect}>
-                <Square className="mr-2 size-4" />
-                End Session
-              </AccentButton>
-            </div>
-          )}
-
-          {therapyStatus === 'notStarted' && <TherapyStart callStatus={callStatus} handleCall={handleCall} />}
-
-          {therapyStatus === 'ended' && <TherapyEnd setTherapyStatus={setTherapyStatus} />}
-
-          {therapyStatus === 'error' && (
-            <div className="my-auto flex flex-col items-center gap-4">
-              <div className="rounded-md bg-red-50 p-4">
-                <p className="text-center text-red-700">
-                  {errorMessage || 'An error occurred with the therapy session'}
-                </p>
+          <div className="flex h-96 flex-col gap-4">
+            {therapyStatus === 'ongoing' && (
+              <AI isSpeaking={isSpeaking && messages.length > 0 && messages[messages.length - 1]?.role === 'ai'} />
+            )}
+            {therapyStatus === 'ongoing' && (
+              <div className="flex flex-col gap-2">
+                {lastMessage && (
+                  <div className="max-h-24 overflow-y-auto rounded bg-gray-100 p-2 text-sm">
+                    <p>{lastMessage}</p>
+                  </div>
+                )}
+                <AccentButton className="w-full bg-red-700" onClick={handleDisconnect}>
+                  <Square className="mr-2 size-4" />
+                  End Session
+                </AccentButton>
               </div>
-              <AccentButton className="mt-2 w-full bg-[#4CAF50] hover:bg-[#3e8e41]" onClick={handleRetry}>
-                Retry Connection
-              </AccentButton>
-            </div>
-          )}
+            )}
+
+            {therapyStatus === 'notStarted' && <TherapyStart callStatus={callStatus} handleCall={handleCall} />}
+
+            {therapyStatus === 'ended' && (
+              <>
+                <TherapyEnd setTherapyStatus={setTherapyStatus} />
+                <div className="mt-2 flex flex-col gap-2">
+                  {isFetchingAnalysis ? (
+                    <div className="text-center text-sm text-gray-600">
+                      <p className="animate-pulse">Fetching analysis data...</p>
+                    </div>
+                  ) : (
+                    <>
+                      {analysisData && (
+                        <AccentButton className="w-full bg-[#4CAF50] hover:bg-[#3e8e41]" onClick={handleViewReport}>
+                          <FileText className="mr-2 size-4" />
+                          View Your Report
+                        </AccentButton>
+                      )}
+                      <AccentButton
+                        className="w-full border border-[#4CAF50] bg-white text-[#4CAF50] hover:bg-green-50"
+                        onClick={handleFetchAnalysis}
+                        disabled={isFetchingAnalysis}
+                      >
+                        {analysisData ? 'Refresh Analysis Data' : 'Fetch Analysis Data'}
+                      </AccentButton>
+                    </>
+                  )}
+                </div>
+              </>
+            )}
+
+            {therapyStatus === 'error' && (
+              <div className="my-auto flex flex-col items-center gap-4">
+                <div className="rounded-md bg-red-50 p-4">
+                  <p className="text-center text-red-700">
+                    {errorMessage || 'An error occurred with the therapy session'}
+                  </p>
+                </div>
+                <AccentButton className="mt-2 w-full bg-[#4CAF50] hover:bg-[#3e8e41]" onClick={handleRetry}>
+                  Retry Connection
+                </AccentButton>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </section>
   );
 };
