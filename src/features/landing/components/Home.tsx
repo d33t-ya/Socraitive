@@ -21,7 +21,10 @@ export const Home = () => {
           <div className="flex flex-col items-start">
             <h2 className="text-lg font-semibold leading-tight">Career Development</h2>
             <p className="text-sm text-muted-foreground">
-              Powered by&nbsp;<AccentText>Socraitive</AccentText>
+              Powered by&nbsp;
+              <span className="font-normal text-[#3a63ff]">
+                Socr<span className="font-extrabold text-[#3e8e41]">ai</span>tive
+              </span>
             </p>
           </div>
         </div>
@@ -38,10 +41,13 @@ export const Home = () => {
           </p>
         </div>
 
-        <Link href="/interview" className={cn(accentButtonClassnames, 'mb-8 mt-6 w-full')}>
-          <PlayIcon className="mr-2 size-4" />
-          Let&apos;s Get Started
-        </Link>
+        <div className="mb-8 mt-6 w-full">
+          <button className={cn(accentButtonClassnames, 'w-full cursor-not-allowed opacity-60')} disabled={true}>
+            <PlayIcon className="mr-2 size-4" />
+            Let&apos;s Get Started
+          </button>
+          <p className="mt-1 text-center text-xs text-muted-foreground">Coming soon</p>
+        </div>
       </div>
 
       {/* AI Therapist Card */}
@@ -57,7 +63,10 @@ export const Home = () => {
           <div className="flex flex-col items-start">
             <h2 className="text-lg font-semibold leading-tight">Mental Wellness</h2>
             <p className="text-sm text-muted-foreground">
-              Powered by&nbsp;<AccentText>Socraitive</AccentText>
+              Powered by&nbsp;
+              <span className="font-normal text-[#3a63ff]">
+                Socr<span className="font-extrabold text-[#3e8e41]">ai</span>tive
+              </span>
             </p>
           </div>
         </div>
