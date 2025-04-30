@@ -7,10 +7,10 @@ import { accentButtonClassnames, AccentText } from '@/components/custom';
 
 export const Home = () => {
   return (
-    <section className="my-auto flex w-full items-center justify-center gap-8">
+    <section className="my-auto flex w-full flex-col items-center justify-center gap-8 lg:flex-row">
       {/* AI Interviewer Card */}
-      <div className="flex flex-col rounded-lg bg-white px-8 shadow-md">
-        <h1 className="mx-auto w-full border-b border-[#3a63ff]/30 py-5 text-center text-2xl font-bold text-[#3a63ff]">
+      <div className="flex w-full max-w-sm flex-col rounded-lg bg-white px-6 shadow-md sm:px-8">
+        <h1 className="mx-auto w-full border-b border-[#3a63ff]/30 py-5 text-center text-xl font-bold text-[#3a63ff] sm:text-2xl">
           AI Interviewer
         </h1>
 
@@ -19,8 +19,8 @@ export const Home = () => {
             <PersonIcon className="size-4" />
           </span>
           <div className="flex flex-col items-start">
-            <h2 className="text-lg font-semibold leading-tight">Career Development</h2>
-            <p className="text-sm text-muted-foreground">
+            <h2 className="text-base font-semibold leading-tight sm:text-lg">Career Development</h2>
+            <p className="text-xs text-muted-foreground sm:text-sm">
               Powered by&nbsp;
               <span className="font-normal text-[#3a63ff]">
                 Socr<span className="font-extrabold text-[#3e8e41]">ai</span>tive
@@ -30,13 +30,15 @@ export const Home = () => {
         </div>
 
         <div className="my-4 flex flex-col items-center justify-center gap-2">
-          <p className="text-balance text-center">Welcome to your AI Interview Experience.</p>
-          <p className="text-balance text-center">Here you can take interviews and get feedback from AI.</p>
-          <p className="text-balance text-center">
+          <p className="text-balance text-center text-sm sm:text-base">Welcome to your AI Interview Experience.</p>
+          <p className="text-balance text-center text-sm sm:text-base">
+            Here you can take interviews and get feedback from AI.
+          </p>
+          <p className="text-balance text-center text-sm sm:text-base">
             Click &quot;Let&apos;s Get Started&quot; button to begin your interview. The AI will guide you through a
             series of questions.
           </p>
-          <p className="text-balance border-b border-current text-center text-sm text-muted-foreground">
+          <p className="text-balance border-b border-current text-center text-xs text-muted-foreground sm:text-sm">
             Ensure your microphone is enabled for the best experience.
           </p>
         </div>
@@ -51,8 +53,8 @@ export const Home = () => {
       </div>
 
       {/* AI Therapist Card */}
-      <div className="flex flex-col rounded-lg bg-white px-8 shadow-md">
-        <h1 className="mx-auto w-full border-b border-[#4CAF50]/30 py-5 text-center text-2xl font-bold text-[#4CAF50]">
+      <div className="flex w-full max-w-sm flex-col rounded-lg bg-white px-6 shadow-md sm:px-8">
+        <h1 className="mx-auto w-full border-b border-[#4CAF50]/30 py-5 text-center text-xl font-bold text-[#4CAF50] sm:text-2xl">
           AI Therapist
         </h1>
 
@@ -61,8 +63,8 @@ export const Home = () => {
             <HeartFilledIcon className="size-4" />
           </span>
           <div className="flex flex-col items-start">
-            <h2 className="text-lg font-semibold leading-tight">Mental Wellness</h2>
-            <p className="text-sm text-muted-foreground">
+            <h2 className="text-base font-semibold leading-tight sm:text-lg">Mental Wellness</h2>
+            <p className="text-xs text-muted-foreground sm:text-sm">
               Powered by&nbsp;
               <span className="font-normal text-[#3a63ff]">
                 Socr<span className="font-extrabold text-[#3e8e41]">ai</span>tive
@@ -72,13 +74,15 @@ export const Home = () => {
         </div>
 
         <div className="my-4 flex flex-col items-center justify-center gap-2">
-          <p className="text-balance text-center">Welcome to your AI Therapy Experience.</p>
-          <p className="text-balance text-center">Here you can have supportive conversations about mental wellness.</p>
-          <p className="text-balance text-center">
+          <p className="text-balance text-center text-sm sm:text-base">Welcome to your AI Therapy Experience.</p>
+          <p className="text-balance text-center text-sm sm:text-base">
+            Here you can have supportive conversations about mental wellness.
+          </p>
+          <p className="text-balance text-center text-sm sm:text-base">
             Click &quot;Start Session&quot; button to begin your therapy session. The AI will provide a safe space for
             discussion.
           </p>
-          <p className="text-balance border-b border-current text-center text-sm text-muted-foreground">
+          <p className="text-balance border-b border-current text-center text-xs text-muted-foreground sm:text-sm">
             Ensure your microphone is enabled for the best experience.
           </p>
         </div>

@@ -199,7 +199,7 @@ export const Therapy = () => {
       {therapyStatus === 'report' ? (
         <FeedbackReport analysisData={analysisData} onBack={handleBackFromReport} />
       ) : (
-        <div className="my-6 grid grid-cols-2 gap-4">
+        <div className="my-6 grid grid-cols-1 gap-4 md:grid-cols-2">
           <Patient isSpeaking={!isSpeaking && therapyStatus === 'ongoing'} />
 
           <div className="flex h-96 flex-col gap-4">
