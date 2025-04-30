@@ -9,7 +9,7 @@ const HomePage: NextPage = () => {
     <div className="flex min-h-screen flex-col">
       <Header />
 
-      <main className="flex flex-1 flex-col p-4 sm:p-6 md:p-12">
+      <main className="flex flex-1 flex-col p-4 sm:p-6 md:p-16">
         <Home />
       </main>
 
