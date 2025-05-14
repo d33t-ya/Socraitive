@@ -6,10 +6,10 @@ import { Header, Footer } from '@/components/custom';
 
 const HomePage: NextPage = () => {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col bg-black text-white">
       <Header />
 
-      <main className="flex flex-1 flex-col p-4 sm:p-6 md:p-16">
+      <main className="flex flex-1 flex-col">
         <Home />
       </main>
 
