@@ -23,8 +23,8 @@ export const Footer: React.FunctionComponent = (): JSX.Element => {
                   | AI Therapist
                 </span>
               </div>
-            </div>
-            <p className="mb-4 max-w-xs text-zinc-400">
+            </div>{' '}
+            <p className="mb-4 max-w-xs text-xs text-zinc-400">
               A compassionate AI companion designed to provide mental wellness support and guided conversations.
             </p>
             <div className="flex items-center gap-4">
@@ -42,13 +42,13 @@ export const Footer: React.FunctionComponent = (): JSX.Element => {
           {/* Links */}
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:gap-12">
             <div>
-              <h3 className="mb-3 text-sm font-medium uppercase tracking-wider text-zinc-400">Product</h3>
+              <h3 className="mb-3 text-sm font-medium uppercase tracking-wider text-zinc-400">Product</h3>{' '}
               <ul className="space-y-2">
                 {['Features', 'How It Works', 'Pricing', 'FAQ'].map((item) => (
                   <li key={item}>
                     <Link
                       href={`#${item.toLowerCase().replace(/\s+/g, '-')}`}
-                      className="text-zinc-400 hover:text-white"
+                      className="text-xs text-zinc-400 hover:text-white"
                     >
                       {item}
                     </Link>
@@ -58,11 +58,11 @@ export const Footer: React.FunctionComponent = (): JSX.Element => {
             </div>
 
             <div>
-              <h3 className="mb-3 text-sm font-medium uppercase tracking-wider text-zinc-400">Support</h3>
+              <h3 className="mb-3 text-sm font-medium uppercase tracking-wider text-zinc-400">Support</h3>{' '}
               <ul className="space-y-2">
                 {['Documentation', 'Contact', 'Privacy', 'Terms'].map((item) => (
                   <li key={item}>
-                    <Link href="#" className="text-zinc-400 hover:text-white">
+                    <Link href="#" className="text-xs text-zinc-400 hover:text-white">
                       {item}
                     </Link>
                   </li>
@@ -71,11 +71,11 @@ export const Footer: React.FunctionComponent = (): JSX.Element => {
             </div>
 
             <div>
-              <h3 className="mb-3 text-sm font-medium uppercase tracking-wider text-zinc-400">Legal</h3>
+              <h3 className="mb-3 text-sm font-medium uppercase tracking-wider text-zinc-400">Legal</h3>{' '}
               <ul className="space-y-2">
                 {['Privacy Policy', 'Terms of Service', 'Cookie Policy', 'GDPR'].map((item) => (
                   <li key={item}>
-                    <Link href="#" className="text-zinc-400 hover:text-white">
+                    <Link href="#" className="text-xs text-zinc-400 hover:text-white">
                       {item}
                     </Link>
                   </li>

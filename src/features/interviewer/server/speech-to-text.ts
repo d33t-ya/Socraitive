@@ -3,7 +3,7 @@ import ai from '@/lib/open-api';
 export const speechToText = async (audioBuffer: Buffer): Promise<string> => {
   try {
     const transcription = await ai.audio.transcriptions.create({
-      file: new File([audioBuffer], 'audio.wav', { type: 'audio/wav' }),
+      file: new File([audioBuffer as any], 'audio.wav', { type: 'audio/wav' }),
       model: 'whisper-1',
     });
 

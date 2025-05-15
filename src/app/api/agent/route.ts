@@ -2,7 +2,12 @@ import { NextResponse } from 'next/server';
 import { textToSpeech } from '@/features/interviewer/server/text-to-speech';
 import { speechToText } from '@/features/interviewer/server/speech-to-text';
 import { getAICompletion } from '@/features/interviewer/server/interview-agent';
-import { addAgentResponse, addUserResponse, START_PROMPT, stripAgentTag } from '@/features/interviewer/server/prompt-builder';
+import {
+  addAgentResponse,
+  addUserResponse,
+  START_PROMPT,
+  stripAgentTag,
+} from '@/features/interviewer/server/prompt-builder';
 
 // Take { data: string, context: string, isStart: boolean } from request body where data is base64 encoded audio, isStart is a boolean indicating if it's the first interaction and context is the history of the conversation
 export async function POST(request: Request) {

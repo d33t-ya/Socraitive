@@ -67,6 +67,10 @@ const steps = [
     title: 'Receive Support',
     description: 'Emma listens, responds with empathy, and provides personalized therapeutic guidance.',
   },
+  {
+    title: 'Receive Report',
+    description: 'After each session, get a detailed summary and insights about your emotional well-being.',
+  },
 ];
 
 // Import our new components
@@ -76,6 +80,8 @@ import { SparklesEffect } from '@/components/ui/sparkles-effect';
 import { BorderGradient } from '@/components/ui/border-gradient';
 import { GalaxySpots } from '@/components/ui/galaxy-spots';
 import { FAQSection } from '@/components/ui/faq-section';
+import { GlowingEffect } from '@/components/ui/glowing-effect';
+import { Marquee } from '@/components/ui/marquee';
 
 export const Home = () => {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
@@ -270,30 +276,27 @@ export const Home = () => {
               Emma combines advanced AI with therapeutic techniques to provide personalized support for your mental
               well-being.
             </p>
-          </motion.div>
-
+          </motion.div>{' '}
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {features.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="group relative flex flex-col rounded-xl border border-zinc-800 bg-zinc-900 p-8 transition-all duration-200 hover:border-[#4CAF50]/50 hover:bg-zinc-900/80"
-              >
-                {/* Hover effect */}
-                <div className="absolute inset-0 -z-10 rounded-xl bg-[radial-gradient(circle_at_center,rgba(76,175,80,0.15),transparent_70%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+              <GlowingEffect key={index} containerClassName="h-full">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="group relative flex h-full flex-col rounded-xl border border-zinc-800 bg-zinc-900 p-8 transition-all duration-200 hover:border-[#4CAF50]/50 hover:bg-zinc-900/80"
+                >
+                  {/* Add Galaxy Spots for decoration */}
+                  <GalaxySpots count={15} />
 
-                {/* Add Galaxy Spots for decoration */}
-                <GalaxySpots count={15} />
-
-                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-[#4CAF50]/10 text-[#4CAF50]">
-                  {feature.icon}
-                </div>
-                <h3 className="mb-3 text-xl font-semibold text-white">{feature.title}</h3>
-                <p className="text-zinc-400">{feature.description}</p>
-              </motion.div>
+                  <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-[#4CAF50]/10 text-[#4CAF50]">
+                    {feature.icon}
+                  </div>
+                  <h3 className="mb-3 text-xl font-semibold text-white">{feature.title}</h3>
+                  <p className="text-zinc-400">{feature.description}</p>
+                </motion.div>
+              </GlowingEffect>
             ))}
           </div>
         </div>
@@ -323,11 +326,10 @@ export const Home = () => {
             <p className="mx-auto max-w-3xl text-lg text-zinc-400">
               Emma uses voice interaction to create a natural and engaging therapeutic experience
             </p>
-          </motion.div>
-
-          <div className="relative grid grid-cols-1 gap-12 md:grid-cols-3">
+          </motion.div>{' '}
+          <div className="relative grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
             {/* Connecting Line */}
-            <div className="absolute top-10 z-0 hidden h-1 w-full translate-y-1 bg-gradient-to-r from-[#4CAF50]/20 via-[#8BC34A]/20 to-[#4CAF50]/20 md:block"></div>
+            <div className="absolute top-10 z-0 hidden h-1 w-full translate-y-1 bg-gradient-to-r from-[#4CAF50]/20 via-[#8BC34A]/20 to-[#4CAF50]/20 lg:block"></div>
 
             {steps.map((step, index) => (
               <motion.div
@@ -348,7 +350,6 @@ export const Home = () => {
               </motion.div>
             ))}
           </div>
-
           {/* Demo Button */}
           <motion.div
             className="mt-16 flex justify-center"
@@ -409,30 +410,34 @@ export const Home = () => {
                 title: 'Healthcare Worker',
               },
             ].map((testimonial, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="relative rounded-xl border border-zinc-800 bg-zinc-900 p-6"
-              >
-                <div className="mb-4">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <StarFilledIcon key={i} className="mr-1 inline size-4 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="mb-6 text-zinc-300">"{testimonial.text}"</p>
-                <div className="flex items-center">
-                  <div className="mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-[#4CAF50]/20 text-[#4CAF50]">
-                    <Users className="size-5" />
+              <GlowingEffect key={index} containerClassName="h-full">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="relative h-full rounded-xl border border-zinc-800 bg-zinc-900 p-6"
+                >
+                  {/* Add Galaxy Spots for decoration */}
+                  <GalaxySpots count={12} />
+
+                  <div className="mb-4">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <StarFilledIcon key={i} className="mr-1 inline size-4 text-yellow-400" />
+                    ))}
                   </div>
-                  <div>
-                    <h4 className="font-semibold text-white">{testimonial.name}</h4>
-                    <p className="text-xs text-zinc-500">{testimonial.title}</p>
+                  <p className="mb-6 text-zinc-300">"{testimonial.text}"</p>
+                  <div className="flex items-center">
+                    <div className="mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-[#4CAF50]/20 text-[#4CAF50]">
+                      <Users className="size-5" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-white">{testimonial.name}</h4>
+                      <p className="text-xs text-zinc-500">{testimonial.title}</p>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
+                </motion.div>
+              </GlowingEffect>
             ))}
           </div>
         </div>
@@ -465,51 +470,84 @@ export const Home = () => {
               <Sparkles className="mr-2 size-4 text-[#4CAF50]" />
               <span className="text-sm text-[#4CAF50]">Trusted Partnerships</span>
             </div>
-
             <h2 className="mb-6 max-w-3xl bg-gradient-to-r from-white via-white to-zinc-300 bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl md:text-6xl">
               Our Clinical Collaborations
             </h2>
-
             <p className="mb-10 max-w-2xl text-lg text-zinc-400">
               Emma partners with leading mental health clinics and counseling centers to provide AI-assisted support
               that complements professional therapy.
-            </p>
+            </p>{' '}
+            <div className="w-full overflow-hidden">
+              <Marquee
+                items={[
+                  {
+                    name: 'Mindful Health Clinic',
+                    description: 'Mental wellness specialists',
+                    logo: <HeartFilledIcon className="size-8 text-[#4CAF50]" />,
+                  },
+                  {
+                    name: 'Wellness Partners',
+                    description: 'Holistic therapy approach',
+                    logo: <StarFilledIcon className="size-8 text-[#8BC34A]" />,
+                  },
+                  {
+                    name: 'Better Mind Center',
+                    description: 'Cognitive behavioral therapy',
+                    logo: <ChatBubbleIcon className="size-8 text-[#4CAF50]" />,
+                  },
+                  {
+                    name: 'Serenity Counseling',
+                    description: 'Stress & anxiety relief',
+                    logo: <ShieldIcon className="size-8 text-[#8BC34A]" />,
+                  },
+                  {
+                    name: 'Harmony Institute',
+                    description: 'Family & relationship therapy',
+                    logo: <HeartFilledIcon className="size-8 text-[#4CAF50]" />,
+                  },
+                  {
+                    name: 'Mindscape Center',
+                    description: 'Depression & mood disorders',
+                    logo: <ChatBubbleIcon className="size-8 text-[#8BC34A]" />,
+                  },
+                ]}
+                className="mb-6"
+                direction="left"
+                speed={15}
+              />
 
-            <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
-              {[
-                {
-                  name: 'Mindful Health Clinic',
-                  logo: <HeartFilledIcon className="size-10 text-[#4CAF50]" />,
-                },
-                {
-                  name: 'Wellness Partners',
-                  logo: <StarFilledIcon className="size-10 text-[#8BC34A]" />,
-                },
-                {
-                  name: 'Better Mind Center',
-                  logo: <ChatBubbleIcon className="size-10 text-[#4CAF50]" />,
-                },
-                {
-                  name: 'Serenity Counseling',
-                  logo: <ShieldIcon className="size-10 text-[#8BC34A]" />,
-                },
-              ].map((partner, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="flex flex-col items-center"
-                >
-                  <div className="mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-white/10 backdrop-blur-sm">
-                    {partner.logo}
-                  </div>
-                  <h3 className="text-lg font-medium text-white">{partner.name}</h3>
-                </motion.div>
-              ))}
+              <Marquee
+                items={[
+                  {
+                    name: 'Tranquil Therapy',
+                    description: 'PTSD & trauma recovery',
+                    logo: <ShieldIcon className="size-8 text-[#8BC34A]" />,
+                  },
+                  {
+                    name: 'Insight Psychology',
+                    description: 'Psychotherapy specialists',
+                    logo: <StarFilledIcon className="size-8 text-[#4CAF50]" />,
+                  },
+                  {
+                    name: 'Hope Counseling',
+                    description: 'Addiction recovery support',
+                    logo: <HeartFilledIcon className="size-8 text-[#8BC34A]" />,
+                  },
+                  {
+                    name: 'Clarity Mental Health',
+                    description: 'Youth & adolescent therapy',
+                    logo: <ChatBubbleIcon className="size-8 text-[#4CAF50]" />,
+                  },
+                  {
+                    name: 'Balanced Mind',
+                    description: 'Mindfulness-based therapy',
+                    logo: <StarFilledIcon className="size-8 text-[#8BC34A]" />,
+                  },
+                ]}
+                direction="right"
+                speed={18}
+              />
             </div>
-
             <Link
               href="/therapist"
               className="group mt-12 inline-flex items-center text-[#4CAF50] hover:text-[#3e8e41]"
@@ -520,9 +558,18 @@ export const Home = () => {
           </motion.div>
         </div>
       </section>{' '}
-      {/* Services Section */} {/* FAQ Section */}
-      <section id="faq" className="w-full bg-black py-20 md:py-32">
-        <div className="container mx-auto max-w-4xl px-4">
+      {/* FAQ Section */}
+      <section id="faq" className="relative w-full bg-black py-20 md:py-32">
+        {/* Static background effects */}
+        <div
+          className="fixed-background absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(76,175,80,0.03),transparent_70%)]"
+          style={{ pointerEvents: 'none' }}
+        />
+        <div className="fixed-galaxy-spots absolute inset-0" style={{ pointerEvents: 'none' }}>
+          <GalaxySpots count={50} />
+        </div>
+
+        <div className="container relative z-10 mx-auto max-w-4xl px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

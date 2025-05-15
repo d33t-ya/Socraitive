@@ -36,7 +36,7 @@ export const InterviewStart = ({
       const response = await textToSpeech(AI_SPEECH_START);
 
       // Get the audio data as a Blob
-      const audioBlob = new Blob([response], { type: 'audio/mpeg' });
+      const audioBlob = new Blob([response as any], { type: 'audio/mpeg' });
       const audioUrl = URL.createObjectURL(audioBlob);
 
       const audio = new Audio(audioUrl);
