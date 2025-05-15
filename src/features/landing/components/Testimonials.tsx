@@ -85,10 +85,6 @@ export const Testimonials = () => {
                     initial={{ opacity: 0, y: 30 }}
                     animate={isCardInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                     transition={{ duration: 0.6, delay: index * 0.2 }}
-                    whileHover={{
-                      y: -5,
-                      transition: { type: 'spring', stiffness: 400, damping: 10 },
-                    }}
                     aria-label={testimonial.ariaLabel}
                     className="h-full"
                   >

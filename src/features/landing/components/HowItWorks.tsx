@@ -77,14 +77,14 @@ export const HowItWorks = () => {
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   animate={isStepInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                  transition={{ duration: 0.5, delay: index * 0.2 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="relative z-10 flex flex-col items-center text-center"
                   aria-label={`Step ${index + 1}: ${step.title}`}
                 >
                   <motion.div
                     className="relative mb-8 flex h-20 w-20 items-center justify-center rounded-full border-4 border-[#4CAF50] bg-black text-white"
                     whileHover={{
-                      scale: 1.1,
+                      scale: 1.05,
                       boxShadow: '0 0 20px rgba(76, 175, 80, 0.5)',
                       transition: { type: 'spring', stiffness: 400, damping: 10 },
                     }}

@@ -78,7 +78,7 @@ export const Hero = () => {
             className="mb-12 flex flex-col items-center gap-4 sm:flex-row sm:justify-center"
           >
             <motion.div
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.98 }}
               transition={{ type: 'spring', stiffness: 400, damping: 17 }}
             >
