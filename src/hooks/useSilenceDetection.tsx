@@ -16,7 +16,6 @@ export default function useSilenceDetection(
   setIsSilent: React.Dispatch<React.SetStateAction<boolean>>;
 } {
   const [isSilent, setIsSilent] = useState<boolean>(false);
-
   useEffect(() => {
     if (isSilent) {
       return;
@@ -81,14 +80,13 @@ export default function useSilenceDetection(
         stream.getTracks().forEach((track) => track.stop());
       }
     };
-  }, [isRecording, stopRecording]);
-
+  }, [isRecording, stopRecording, setIsSilent, isSilent]);
   // Memoize the return object to avoid unnecessary re-renders
   return useMemo(
     () => ({
       isSilent,
       setIsSilent,
     }),
-    [isSilent]
+    [isSilent, setIsSilent]
   );
 }

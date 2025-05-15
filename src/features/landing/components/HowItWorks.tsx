@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import { motion, useInView } from 'motion/react';
+import React from 'react';
+import { motion } from 'motion/react';
 import { PlayIcon } from '@radix-ui/react-icons';
 import { SparklesEffect } from '@/components/ui/sparkles-effect';
 import { Card } from '@/components/ui/card';
@@ -8,18 +8,15 @@ import { Button } from '@/components/ui/button';
 import { steps } from '../constants/howItWorks';
 
 export const HowItWorks = () => {
-  const sectionRef = useRef(null);
-  const isSectionInView = useInView(sectionRef, { once: true, amount: 0.2 });
-
   return (
     <>
-      <section ref={sectionRef} className="relative w-full bg-black py-20 md:py-32">
+      <section className="relative w-full bg-black py-20 md:py-32">
         <SparklesEffect count={35} />
 
         <div className="container mx-auto max-w-6xl px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={isSectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
             className="mb-20 text-center"
           >
@@ -27,13 +24,13 @@ export const HowItWorks = () => {
               <motion.div
                 className="h-px w-12 bg-gradient-to-r from-transparent to-[#4CAF50]"
                 initial={{ width: 0 }}
-                animate={isSectionInView ? { width: 48 } : { width: 0 }}
+                animate={{ width: 48 }}
                 transition={{ duration: 0.8 }}
               ></motion.div>
               <motion.span
                 className="bg-gradient-to-r from-[#4CAF50] to-[#8BC34A] bg-clip-text text-sm font-medium uppercase tracking-wider text-transparent"
                 initial={{ opacity: 0 }}
-                animate={isSectionInView ? { opacity: 1 } : { opacity: 0 }}
+                animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
                 Process
@@ -41,7 +38,7 @@ export const HowItWorks = () => {
               <motion.div
                 className="h-px w-12 bg-gradient-to-r from-[#4CAF50] to-transparent"
                 initial={{ width: 0 }}
-                animate={isSectionInView ? { width: 48 } : { width: 0 }}
+                animate={{ width: 48 }}
                 transition={{ duration: 0.8 }}
               ></motion.div>
             </div>
@@ -62,67 +59,57 @@ export const HowItWorks = () => {
             <motion.div
               className="absolute top-10 z-0 hidden h-1 w-full translate-y-1 bg-gradient-to-r from-[#4CAF50]/20 via-[#8BC34A]/20 to-[#4CAF50]/20 lg:block"
               initial={{ scaleX: 0, opacity: 0 }}
-              animate={isSectionInView ? { scaleX: 1, opacity: 1 } : { scaleX: 0, opacity: 0 }}
+              animate={{ scaleX: 1, opacity: 1 }}
               transition={{ duration: 1, delay: 0.3 }}
               style={{ transformOrigin: 'left' }}
             ></motion.div>
 
-            {steps.map((step, index) => {
-              const stepRef = useRef(null);
-              const isStepInView = useInView(stepRef, { once: true, amount: 0.2 });
-
-              return (
+            {steps.map((step, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="relative z-10 flex flex-col items-center text-center"
+                aria-label={`Step ${index + 1}: ${step.title}`}
+              >
                 <motion.div
-                  ref={stepRef}
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isStepInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="relative z-10 flex flex-col items-center text-center"
-                  aria-label={`Step ${index + 1}: ${step.title}`}
+                  className="relative mb-8 flex h-20 w-20 items-center justify-center rounded-full border-4 border-[#4CAF50] bg-black text-white"
+                  whileHover={{
+                    scale: 1.05,
+                    boxShadow: '0 0 20px rgba(76, 175, 80, 0.5)',
+                    transition: { type: 'spring', stiffness: 400, damping: 10 },
+                  }}
                 >
                   <motion.div
-                    className="relative mb-8 flex h-20 w-20 items-center justify-center rounded-full border-4 border-[#4CAF50] bg-black text-white"
-                    whileHover={{
-                      scale: 1.05,
-                      boxShadow: '0 0 20px rgba(76, 175, 80, 0.5)',
-                      transition: { type: 'spring', stiffness: 400, damping: 10 },
+                    className="absolute -inset-1 rounded-full opacity-0"
+                    animate={{
+                      boxShadow: ['0 0 0 0px rgba(76, 175, 80, 0.3)', '0 0 0 10px rgba(76, 175, 80, 0)'],
+                      opacity: [1, 0],
                     }}
-                  >
-                    <motion.div
-                      className="absolute -inset-1 rounded-full opacity-0"
-                      animate={
-                        isStepInView
-                          ? {
-                              boxShadow: ['0 0 0 0px rgba(76, 175, 80, 0.3)', '0 0 0 10px rgba(76, 175, 80, 0)'],
-                              opacity: [1, 0],
-                            }
-                          : {}
-                      }
-                      transition={{ repeat: Infinity, duration: 2, delay: index * 0.3 + 0.5 }}
-                    />
-                    <span className="bg-gradient-to-r from-[#4CAF50] to-[#8BC34A] bg-clip-text text-2xl font-bold text-transparent">
-                      {index + 1}
-                    </span>
-                  </motion.div>
-
-                  <Card className="border-none bg-transparent">
-                    <Typography as="h3" variant="h3" className="mb-4 text-2xl font-bold text-white">
-                      {step.title}
-                    </Typography>
-                    <Typography as="p" className="max-w-xs text-zinc-400">
-                      {step.description}
-                    </Typography>
-                  </Card>
+                    transition={{ repeat: Infinity, duration: 2, delay: index * 0.3 + 0.5 }}
+                  />
+                  <span className="bg-gradient-to-r from-[#4CAF50] to-[#8BC34A] bg-clip-text text-2xl font-bold text-transparent">
+                    {index + 1}
+                  </span>
                 </motion.div>
-              );
-            })}
+
+                <Card className="border-none bg-transparent">
+                  <Typography as="h3" variant="h3" className="mb-4 text-2xl font-bold text-white">
+                    {step.title}
+                  </Typography>
+                  <Typography as="p" className="max-w-xs text-zinc-400">
+                    {step.description}
+                  </Typography>
+                </Card>
+              </motion.div>
+            ))}
           </div>
 
           <motion.div
             className="mt-16 flex justify-center"
             initial={{ opacity: 0, y: 20 }}
-            animate={isSectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.8 }}
           >
             <Button

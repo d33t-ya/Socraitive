@@ -9,24 +9,17 @@ interface GalaxySpot {
 }
 
 export const GalaxySpots = ({ count = 20 }) => {
-  // Generate random spots
-  const generateSpots = (): GalaxySpot[] => {
-    const spots: GalaxySpot[] = [];
+  // Generate spots on render - for a static landing page, this only happens once
+  const spots: GalaxySpot[] = [];
 
-    for (let i = 0; i < count; i++) {
-      spots.push({
-        top: `${Math.random() * 100}%`,
-        left: `${Math.random() * 100}%`,
-        size: `${Math.random() * 10 + 2}px`, // Random size between 2-12px
-        opacity: Math.random() * 0.6 + 0.1, // Random opacity between 0.1-0.7
-      });
-    }
-
-    return spots;
-  };
-
-  // Pre-generate spots to avoid re-rendering
-  const spots = React.useMemo(() => generateSpots(), [count]);
+  for (let i = 0; i < count; i++) {
+    spots.push({
+      top: `${Math.random() * 100}%`,
+      left: `${Math.random() * 100}%`,
+      size: `${Math.random() * 10 + 2}px`, // Random size between 2-12px
+      opacity: Math.random() * 0.6 + 0.1, // Random opacity between 0.1-0.7
+    });
+  }
 
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden">

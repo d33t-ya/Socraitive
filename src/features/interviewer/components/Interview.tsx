@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { Square } from 'lucide-react';
 import { AccentButton } from '@/components/custom';
 import { useAudioRecorder } from 'react-audio-voice-recorder';
@@ -36,54 +36,67 @@ export const Interview = () => {
     setPersonTurnToSpeak(false);
   };
 
-  const handleAISpeaking = () => {
-    setPersonTurnToSpeak(false);
-    setAITurnToSpeak(true);
-    if (isRecording) stopRecording();
-  };
-
   // Call the agent API to interact with AI whilst handling the audio response and using the history of the conversation as context
-  const callAgentAPI = async (isStart: boolean) => {
-    if (!(recordingBlob instanceof Blob)) {
-      console.error('Invalid recordingBlob:', recordingBlob);
-      return;
-    }
+  const callAgentAPI = useCallback(
+    async (isStart: boolean) => {
+      // Move handleAISpeaking inside the callback to fix dependency issue
+      const handleAISpeaking = () => {
+        setPersonTurnToSpeak(false);
+        setAITurnToSpeak(true);
+        if (isRecording) stopRecording();
+      };
 
-    const base64Data = (await convertBlobToBase64(recordingBlob)) as string;
-
-    // Check if it's the first interaction to set the context
-    const context = isFirstInteraction ? '' : localStorage.getItem('previousContext');
-    setIsFirstInteraction(false);
-
-    const response = await fetch(`/api/agent`, {
-      method: 'POST',
-      body: JSON.stringify({ data: base64Data, context, isStart }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (!response.ok) {
-      console.error('Failed to interact with AI:', response.statusText);
-      return;
-    }
-
-    const jsonResponse = await response.json();
-    if (jsonResponse.data) {
-      const audioData = jsonResponse.data;
-
-      // Store the content from the response as the context for the next call
-      if (jsonResponse.context) {
-        localStorage.setItem('previousContext', jsonResponse.context);
+      if (!(recordingBlob instanceof Blob)) {
+        console.error('Invalid recordingBlob:', recordingBlob);
+        return;
       }
 
-      handleAISpeaking();
-      playAudio(audioData, setAITurnToSpeak, setPersonTurnToSpeak, setIsSilent, startRecording);
-    } else {
-      console.error('No audio data found in response');
-    }
-  };
+      const base64Data = (await convertBlobToBase64(recordingBlob)) as string;
 
+      // Check if it's the first interaction to set the context
+      const context = isFirstInteraction ? '' : localStorage.getItem('previousContext');
+      setIsFirstInteraction(false);
+
+      const response = await fetch(`/api/agent`, {
+        method: 'POST',
+        body: JSON.stringify({ data: base64Data, context, isStart }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        console.error('Failed to interact with AI:', response.statusText);
+        return;
+      }
+
+      const jsonResponse = await response.json();
+      if (jsonResponse.data) {
+        const audioData = jsonResponse.data;
+
+        // Store the content from the response as the context for the next call
+        if (jsonResponse.context) {
+          localStorage.setItem('previousContext', jsonResponse.context);
+        }
+
+        handleAISpeaking();
+        playAudio(audioData, setAITurnToSpeak, setPersonTurnToSpeak, setIsSilent, startRecording);
+      } else {
+        console.error('No audio data found in response');
+      }
+    },
+    [
+      recordingBlob,
+      isFirstInteraction,
+      setIsFirstInteraction,
+      setAITurnToSpeak,
+      setPersonTurnToSpeak,
+      setIsSilent,
+      startRecording,
+      isRecording,
+      stopRecording,
+    ]
+  );
   // Check for silence detection & call the agent API (interact with AI)
   useEffect(() => {
     const handleSilence = async () => {
@@ -99,7 +112,7 @@ export const Interview = () => {
     };
 
     handleSilence();
-  }, [isSilent, personTurnToSpeak]);
+  }, [isSilent, personTurnToSpeak, callAgentAPI, isFirstInteraction]);
 
   return (
     <section className="flex w-full max-w-4xl flex-col rounded-lg bg-white px-4">
