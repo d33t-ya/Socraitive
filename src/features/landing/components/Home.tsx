@@ -75,7 +75,6 @@ const steps = [
 
 // Import our new components
 import { BackgroundBeams } from '@/components/ui/background-beams';
-import { FloatingCards } from '@/components/ui/floating-cards';
 import { SparklesEffect } from '@/components/ui/sparkles-effect';
 import { BorderGradient } from '@/components/ui/border-gradient';
 import { GalaxySpots } from '@/components/ui/galaxy-spots';
@@ -106,9 +105,6 @@ export const Home = () => {
 
         {/* Hero Content */}
         <div className="container z-10 mx-auto flex max-w-6xl flex-col items-center px-4 text-center">
-          {/* Secondary floating decorations */}
-          <FloatingCards />
-
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -124,7 +120,7 @@ export const Home = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="mb-8 mt-6 max-w-3xl text-lg text-zinc-400 md:text-xl"
+              className="mb-8 mt-6 max-w-3xl mx-auto text-lg text-zinc-400 md:text-xl"
             >
               A compassionate AI companion designed to provide mental wellness support, guided conversations, and a safe
               space for emotional well-being.
@@ -618,7 +614,7 @@ export const Home = () => {
               </div>
               <Link
                 href="/therapist"
-                className="group flex items-center rounded-full bg-white px-6 py-3 text-base font-medium text-[#4CAF50] transition-all hover:bg-opacity-90"
+                className="inline-flex h-14 items-center justify-center rounded-md bg-gradient-to-r from-[#4CAF50] to-[#8BC34A] px-8 py-3 text-base font-medium text-white shadow-[0_0_20px_rgba(76,175,80,0.3)] transition-all hover:shadow-[0_0_25px_rgba(76,175,80,0.5)] focus:outline-none"
               >
                 <HeartFilledIcon className="mr-2 size-5" />
                 <span>Get Started for Free</span>
