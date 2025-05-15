@@ -74,6 +74,8 @@ import { BackgroundBeams } from '@/components/ui/background-beams';
 import { FloatingCards } from '@/components/ui/floating-cards';
 import { SparklesEffect } from '@/components/ui/sparkles-effect';
 import { BorderGradient } from '@/components/ui/border-gradient';
+import { GalaxySpots } from '@/components/ui/galaxy-spots';
+import { FAQSection } from '@/components/ui/faq-section';
 
 export const Home = () => {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
@@ -283,6 +285,9 @@ export const Home = () => {
                 {/* Hover effect */}
                 <div className="absolute inset-0 -z-10 rounded-xl bg-[radial-gradient(circle_at_center,rgba(76,175,80,0.15),transparent_70%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
 
+                {/* Add Galaxy Spots for decoration */}
+                <GalaxySpots count={15} />
+
                 <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-[#4CAF50]/10 text-[#4CAF50]">
                   {feature.icon}
                 </div>
@@ -431,8 +436,8 @@ export const Home = () => {
             ))}
           </div>
         </div>
-      </section>
-      {/* CTA Section */}
+      </section>{' '}
+      {/* Collaborations Section */}
       <section className="relative w-full overflow-hidden bg-black py-24 text-white md:py-32">
         <BackgroundBeams />
 
@@ -458,201 +463,96 @@ export const Home = () => {
           >
             <div className="mb-6 inline-flex items-center justify-center rounded-full border border-[#4CAF50]/30 bg-[#4CAF50]/10 px-4 py-2">
               <Sparkles className="mr-2 size-4 text-[#4CAF50]" />
-              <span className="text-sm text-[#4CAF50]">Start Your Journey Today</span>
+              <span className="text-sm text-[#4CAF50]">Trusted Partnerships</span>
             </div>
 
             <h2 className="mb-6 max-w-3xl bg-gradient-to-r from-white via-white to-zinc-300 bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl md:text-6xl">
-              Ready to Experience Better Mental Well-being?
+              Our Clinical Collaborations
             </h2>
 
             <p className="mb-10 max-w-2xl text-lg text-zinc-400">
-              Take the first step toward better mental health with Emma, your AI therapy companion. All conversations
-              are private and designed to support your well-being.
+              Emma partners with leading mental health clinics and counseling centers to provide AI-assisted support
+              that complements professional therapy.
             </p>
 
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }} className="relative">
-              <div className="absolute -inset-1 rounded-xl bg-gradient-to-r from-[#4CAF50] to-[#8BC34A] opacity-70 blur-lg"></div>
-              <Link
-                href="/therapist"
-                className="relative inline-flex h-16 items-center justify-center rounded-xl bg-gradient-to-r from-[#4CAF50] to-[#8BC34A] px-10 py-4 text-lg font-medium text-white shadow-lg transition-all hover:shadow-xl"
-              >
-                <HeartFilledIcon className="mr-2 size-5" />
-                Start Your Session Now
-              </Link>
-            </motion.div>
+            <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+              {[
+                {
+                  name: 'Mindful Health Clinic',
+                  logo: <HeartFilledIcon className="size-10 text-[#4CAF50]" />,
+                },
+                {
+                  name: 'Wellness Partners',
+                  logo: <StarFilledIcon className="size-10 text-[#8BC34A]" />,
+                },
+                {
+                  name: 'Better Mind Center',
+                  logo: <ChatBubbleIcon className="size-10 text-[#4CAF50]" />,
+                },
+                {
+                  name: 'Serenity Counseling',
+                  logo: <ShieldIcon className="size-10 text-[#8BC34A]" />,
+                },
+              ].map((partner, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="flex flex-col items-center"
+                >
+                  <div className="mb-4 flex h-24 w-24 items-center justify-center rounded-full bg-white/10 backdrop-blur-sm">
+                    {partner.logo}
+                  </div>
+                  <h3 className="text-lg font-medium text-white">{partner.name}</h3>
+                </motion.div>
+              ))}
+            </div>
+
+            <Link
+              href="/therapist"
+              className="group mt-12 inline-flex items-center text-[#4CAF50] hover:text-[#3e8e41]"
+            >
+              <span className="font-medium">Learn more about our clinical partnerships</span>
+              <ChevronRight className="ml-1 size-4 transition-transform group-hover:translate-x-1" />
+            </Link>
           </motion.div>
         </div>
       </section>{' '}
-      {/* Services Section */}
-      <section className="container mx-auto my-24 max-w-6xl px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          viewport={{ once: true }}
-          className="mb-16 text-center"
-        >
-          <div className="mb-4 flex items-center justify-center gap-2">
-            <div className="h-px w-12 bg-gradient-to-r from-transparent to-[#4CAF50]"></div>
-            <span className="bg-gradient-to-r from-[#4CAF50] to-[#8BC34A] bg-clip-text text-sm font-medium uppercase tracking-wider text-transparent">
-              Services
-            </span>
-            <div className="h-px w-12 bg-gradient-to-r from-[#4CAF50] to-transparent"></div>
-          </div>
-          <h2 className="mb-6 bg-gradient-to-b from-black to-zinc-700 bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl">
-            Our AI Solutions
-          </h2>
-          <p className="mx-auto max-w-3xl text-lg text-zinc-600">
-            Choose from our specialized AI-powered experiences designed to support different aspects of your life
-          </p>
-        </motion.div>
+      {/* Services Section */} {/* FAQ Section */}
+      <section id="faq" className="w-full bg-black py-20 md:py-32">
+        <div className="container mx-auto max-w-4xl px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true }}
+            className="mb-16 text-center"
+          >
+            <div className="mb-4 flex items-center justify-center gap-2">
+              <div className="h-px w-12 bg-gradient-to-r from-transparent to-[#4CAF50]"></div>
+              <span className="bg-gradient-to-r from-[#4CAF50] to-[#8BC34A] bg-clip-text text-sm font-medium uppercase tracking-wider text-transparent">
+                FAQ
+              </span>
+              <div className="h-px w-12 bg-gradient-to-r from-[#4CAF50] to-transparent"></div>
+            </div>
+            <h2 className="mb-6 bg-gradient-to-b from-white to-zinc-300 bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl">
+              Frequently Asked Questions
+            </h2>
+            <p className="mx-auto max-w-3xl text-lg text-zinc-400">
+              Find answers to common questions about Emma AI Therapist and how it can help with your mental wellness
+            </p>
+          </motion.div>
 
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-          {/* AI Therapist Card */}
-          <BorderGradient containerClassName="h-full" gradientClassName="from-[#4CAF50] via-[#7CB342] to-[#8BC34A]">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
-              className="group flex h-full flex-1 flex-col overflow-hidden rounded-xl bg-white"
-            >
-              <div className="border-b border-[#4CAF50]/30 bg-gradient-to-r from-[#4CAF50]/5 to-transparent px-6 py-5 sm:px-8">
-                <div className="flex items-start gap-3">
-                  <div className="flex aspect-square items-center justify-center rounded-full bg-[#4CAF50]/10 p-2">
-                    <HeartFilledIcon className="size-5 text-[#4CAF50]" />
-                  </div>
-                  <div className="flex flex-col items-start">
-                    <h2 className="text-xl font-bold text-[#4CAF50]">Emma AI Therapist</h2>
-                    <p className="text-sm text-gray-600">Mental Wellness Support</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex flex-1 flex-col p-6 sm:p-8">
-                <div className="mb-6 flex flex-col gap-3">
-                  <p className="text-balance text-center text-base sm:text-lg">Welcome to your AI Therapy Experience</p>
-                  <p className="text-balance text-center text-base">
-                    Here you can have supportive conversations about mental wellness in a safe and private space.
-                  </p>
-                  <ul className="my-6 space-y-3">
-                    <li className="flex items-center gap-3">
-                      <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#4CAF50]/10">
-                        <CheckIcon className="size-4 text-[#4CAF50]" />
-                      </div>
-                      <span>Personalized emotional support</span>
-                    </li>
-                    <li className="flex items-center gap-3">
-                      <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#4CAF50]/10">
-                        <CheckIcon className="size-4 text-[#4CAF50]" />
-                      </div>
-                      <span>Voice-enabled natural conversations</span>
-                    </li>
-                    <li className="flex items-center gap-3">
-                      <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#4CAF50]/10">
-                        <CheckIcon className="size-4 text-[#4CAF50]" />
-                      </div>
-                      <span>Available 24/7 for your well-being</span>
-                    </li>
-                    <li className="flex items-center gap-3">
-                      <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#4CAF50]/10">
-                        <CheckIcon className="size-4 text-[#4CAF50]" />
-                      </div>
-                      <span>Science-based therapeutic approaches</span>
-                    </li>
-                  </ul>
-                  <p className="text-balance border-b border-zinc-200 pb-2 text-center text-xs text-zinc-500 sm:text-sm">
-                    Ensure your microphone is enabled for the best experience
-                  </p>
-                </div>
-
-                <div className="mt-auto">
-                  <Link
-                    href="/therapist"
-                    className="group flex h-14 w-full items-center justify-center rounded-md bg-[#4CAF50] px-6 py-3 text-base font-medium text-white shadow-lg transition-all hover:bg-[#3e8e41] hover:shadow-xl"
-                  >
-                    <HeartFilledIcon className="mr-2 size-5" />
-                    <span>Start Therapy Session</span>
-                    <ChevronRight className="ml-2 size-4 opacity-0 transition-all group-hover:translate-x-1 group-hover:opacity-100" />
-                  </Link>
-                </div>
-              </div>
-            </motion.div>
-          </BorderGradient>
-
-          {/* AI Interviewer Card */}
-          <BorderGradient containerClassName="h-full" gradientClassName="from-[#3a63ff] via-[#5f7fff] to-[#849fff]">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
-              className="group flex h-full flex-1 flex-col overflow-hidden rounded-xl bg-white"
-            >
-              <div className="border-b border-[#3a63ff]/30 bg-gradient-to-r from-[#3a63ff]/5 to-transparent px-6 py-5 sm:px-8">
-                <div className="flex items-start gap-3">
-                  <div className="flex aspect-square items-center justify-center rounded-full bg-[#3a63ff]/10 p-2">
-                    <PersonIcon className="size-5 text-[#3a63ff]" />
-                  </div>
-                  <div className="flex flex-col items-start">
-                    <h2 className="text-xl font-bold text-[#3a63ff]">AI Interviewer</h2>
-                    <p className="text-sm text-gray-600">Career Development</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex flex-1 flex-col p-6 sm:p-8">
-                <div className="mb-6 flex flex-col gap-3">
-                  <div className="inline-flex items-center justify-center rounded-full bg-amber-100 px-3 py-1 text-xs font-medium text-amber-800">
-                    Coming Soon
-                  </div>
-                  <p className="text-balance text-center text-base sm:text-lg">
-                    Welcome to your AI Interview Experience
-                  </p>
-                  <p className="text-balance text-center text-base">
-                    Practice interviews and receive professional feedback to advance your career.
-                  </p>
-                  <ul className="my-6 space-y-3">
-                    <li className="flex items-center gap-3">
-                      <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#3a63ff]/10">
-                        <CheckIcon className="size-4 text-[#3a63ff]" />
-                      </div>
-                      <span>Realistic interview scenarios</span>
-                    </li>
-                    <li className="flex items-center gap-3">
-                      <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#3a63ff]/10">
-                        <CheckIcon className="size-4 text-[#3a63ff]" />
-                      </div>
-                      <span>Detailed performance feedback</span>
-                    </li>
-                    <li className="flex items-center gap-3">
-                      <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#3a63ff]/10">
-                        <CheckIcon className="size-4 text-[#3a63ff]" />
-                      </div>
-                      <span>Industry-specific questions</span>
-                    </li>
-                    <li className="flex items-center gap-3">
-                      <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#3a63ff]/10">
-                        <CheckIcon className="size-4 text-[#3a63ff]" />
-                      </div>
-                      <span>Post-interview skill improvement tips</span>
-                    </li>
-                  </ul>
-                  <p className="text-balance border-b border-zinc-200 pb-2 text-center text-xs text-zinc-500 sm:text-sm">
-                    Ensure your microphone is enabled for the best experience
-                  </p>
-                </div>
-
-                <div className="mt-auto">
-                  <button className="flex h-14 w-full cursor-not-allowed items-center justify-center rounded-md bg-[#3a63ff]/60 px-6 py-3 text-base font-medium text-white">
-                    <PlayIcon className="mr-2 size-5" />
-                    Coming Soon
-                  </button>
-                  <p className="mt-2 text-center text-xs text-zinc-500">Join our waitlist for early access</p>
-                </div>
-              </div>
-            </motion.div>
-          </BorderGradient>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            <FAQSection />
+          </motion.div>
         </div>
       </section>
       {/* Footer Banner */}

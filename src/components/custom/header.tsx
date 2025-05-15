@@ -31,7 +31,7 @@ export const Header: React.FunctionComponent = (): JSX.Element => {
         <div className="flex items-center gap-4">
           <nav className="hidden md:block">
             <ul className="flex items-center gap-6">
-              {['Features', 'How it Works', 'Testimonials'].map((item) => (
+              {['Features', 'How it Works', 'Testimonials', 'FAQ'].map((item) => (
                 <li key={item}>
                   <Link
                     href={`#${item.toLowerCase().replace(/\s+/g, '-')}`}
