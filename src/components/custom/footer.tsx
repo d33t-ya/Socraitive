@@ -24,7 +24,7 @@ export const Footer: React.FunctionComponent = (): JSX.Element => {
                 </span>
               </div>
             </div>{' '}
-            <p className="mb-4 max-w-xs text-xs text-zinc-400">
+            <p className="mb-4 max-w-xs text-sm text-zinc-400">
               A compassionate AI companion designed to provide mental wellness support and guided conversations.
             </p>
             <div className="flex items-center gap-4">

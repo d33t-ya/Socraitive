@@ -238,7 +238,7 @@ export const Home = () => {
             {[
               { value: '98%', label: 'Satisfaction Rate', icon: <Users className="size-5" /> },
               { value: '24/7', label: 'Support Availability', icon: <HeartFilledIcon className="size-5" /> },
-              { value: '5s', label: 'Avg. Response Time', icon: <LightningBoltIcon className="size-5" /> },
+              { value: '500ms', label: 'Avg. Response Time', icon: <LightningBoltIcon className="size-5" /> },
               { value: 'AI', label: 'Powered by GPT-4', icon: <Bot className="size-5" /> },
             ].map((stat, i) => (
               <div key={i} className="flex flex-col items-center">
@@ -513,7 +513,7 @@ export const Home = () => {
                 ]}
                 className="mb-6"
                 direction="left"
-                speed={15}
+                speed={50}
               />
 
               <Marquee
@@ -545,7 +545,7 @@ export const Home = () => {
                   },
                 ]}
                 direction="right"
-                speed={18}
+                speed={50}
               />
             </div>
             <Link
