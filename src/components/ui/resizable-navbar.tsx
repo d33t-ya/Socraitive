@@ -97,9 +97,11 @@ export const ResizableNavbar: React.FC = () => {
               key={`mobile-link-${idx}`}
               href={item.link}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="relative py-2 text-zinc-400 hover:text-white"
+              className="group relative py-2 text-zinc-400 transition-colors duration-200 hover:text-white"
             >
               <span className="block">{item.name}</span>
+              {/* Animated underline on hover */}
+              <span className="absolute bottom-0 left-0 h-[1px] w-0 bg-gradient-to-r from-[#4CAF50] to-[#8BC34A] transition-all duration-300 ease-out group-hover:w-full"></span>
             </a>
           ))}
           <div className="mt-4 flex w-full flex-col gap-4">

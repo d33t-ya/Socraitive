@@ -115,12 +115,44 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
         <a
           onMouseEnter={() => setHovered(idx)}
           onClick={onItemClick}
-          className="relative px-4 py-2 text-zinc-400 hover:text-white"
+          className="relative px-4 py-2 text-zinc-400 transition-colors duration-200 hover:text-white"
           key={`link-${idx}`}
           href={item.link}
         >
           {hovered === idx && (
-            <motion.div layoutId="hovered" className="absolute inset-0 h-full w-full rounded-full bg-zinc-800" />
+            <motion.div
+              layoutId="hovered"
+              className="absolute inset-0 h-full w-full overflow-hidden rounded-full bg-gradient-to-r from-[#4CAF50]/10 to-[#8BC34A]/10 backdrop-blur-sm"
+              transition={{
+                type: 'spring',
+                bounce: 0.2,
+                duration: 0.6,
+              }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+            >
+              {/* Subtle moving gradient effect */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-[#4CAF50]/5 via-transparent to-[#8BC34A]/5"
+                animate={{
+                  x: ['-100%', '100%'],
+                }}
+                transition={{
+                  repeat: Infinity,
+                  repeatType: 'mirror',
+                  duration: 2,
+                  ease: 'easeInOut',
+                }}
+              />
+
+              {/* Bottom border */}
+              <motion.div
+                className="absolute bottom-0 left-0 h-[2px] w-full bg-gradient-to-r from-[#4CAF50] to-[#8BC34A]"
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ duration: 0.3 }}
+              />
+            </motion.div>
           )}
           <span className="relative z-20">{item.name}</span>
         </a>
@@ -207,6 +239,7 @@ export const NavbarButton = ({
   children,
   className,
   variant = 'primary',
+  onClick,
   ...props
 }: {
   href?: string;
@@ -214,19 +247,57 @@ export const NavbarButton = ({
   children: React.ReactNode;
   className?: string;
   variant?: 'primary' | 'secondary' | 'dark' | 'gradient';
+  onClick?: () => void;
 } & (React.ComponentPropsWithoutRef<'a'> | React.ComponentPropsWithoutRef<'button'>)) => {
   const baseStyles =
-    'px-4 py-2 rounded-full text-sm font-medium relative cursor-pointer hover:-translate-y-0.5 transition duration-200 inline-block text-center';
+    'group inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-medium relative hover:-translate-y-0.5 transition duration-200 overflow-hidden';
 
   const variantStyles = {
-    primary: 'bg-gradient-to-r from-[#4CAF50] to-[#8BC34A] text-white hover:shadow-[0_0_10px_rgba(76,175,80,0.5)]',
-    secondary: 'bg-transparent border border-zinc-700 text-zinc-300 hover:border-[#4CAF50] hover:text-white',
-    dark: 'bg-zinc-900 text-white border border-zinc-800',
-    gradient: 'bg-gradient-to-r from-[#4CAF50] to-[#8BC34A] text-white',
+    primary:
+      'bg-gradient-to-r from-[#4CAF50] to-[#8BC34A] text-white shadow-md hover:shadow-[0_0_15px_rgba(76,175,80,0.4)]',
+    secondary:
+      'border border-zinc-800 bg-black/50 text-white hover:border-[#4CAF50]/40 hover:bg-[#4CAF50]/5 hover:text-white',
+    dark: 'bg-zinc-900 text-white border border-zinc-800 hover:border-zinc-700',
+    gradient: 'bg-gradient-to-r from-[#4CAF50] to-[#8BC34A] text-white hover:shadow-lg',
   };
 
   return (
-    <Tag href={href || undefined} className={cn(baseStyles, variantStyles[variant], className)} {...props}>
+    <Tag
+      href={href || undefined}
+      className={cn(baseStyles, variantStyles[variant], className)}
+      onClick={onClick}
+      {...props}
+    >
+      {/* Inner animation effect for primary and gradient buttons */}
+      {(variant === 'primary' || variant === 'gradient') && (
+        <motion.span
+          className="absolute inset-0 -z-10 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100"
+          initial={{ x: '-100%' }}
+          animate={{ x: '100%' }}
+          transition={{
+            repeat: Infinity,
+            duration: 1.5,
+            ease: 'linear',
+            repeatType: 'loop',
+          }}
+        />
+      )}
+
+      {/* Secondary button hover effect */}
+      {variant === 'secondary' && (
+        <motion.span
+          className="absolute inset-0 -z-10 bg-gradient-to-r from-[#4CAF50]/0 via-[#4CAF50]/5 to-[#4CAF50]/0 opacity-0 group-hover:opacity-100"
+          initial={{ x: '-100%' }}
+          animate={{ x: '200%' }}
+          transition={{
+            repeat: Infinity,
+            duration: 2,
+            ease: 'easeInOut',
+            repeatType: 'loop',
+          }}
+        />
+      )}
+
       {children}
     </Tag>
   );
