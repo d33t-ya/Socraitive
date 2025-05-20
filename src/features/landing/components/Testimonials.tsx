@@ -31,7 +31,7 @@ const testimonials = [
 export const Testimonials = () => {
   return (
     <>
-      <section className="w-full bg-zinc-950 py-20 md:py-32">
+      <section id="testimonials" className="w-full bg-zinc-950 py-20 md:py-32">
         <div className="container mx-auto max-w-6xl px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

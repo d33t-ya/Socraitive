@@ -11,6 +11,8 @@ import { TherapyEnd } from './TherapyEnd';
 import { TherapyStart } from './TherapyStart';
 import { TherapyHeader } from './TherapyHeader';
 import { FeedbackReport } from './FeedbackReport';
+import { BackgroundBeams } from '@/components/ui/background-beams';
+import { SparklesEffect } from '@/components/ui/sparkles-effect';
 
 type TherapyStatus = 'notStarted' | 'ongoing' | 'ended' | 'error' | 'report';
 
@@ -193,7 +195,9 @@ export const Therapy = () => {
   };
 
   return (
-    <section className="flex w-full max-w-4xl flex-col rounded-lg bg-white px-4">
+    <section className="flex w-full max-w-4xl flex-col px-4 py-4 backdrop-blur-sm">
+      <BackgroundBeams />
+      <SparklesEffect />
       <TherapyHeader />
 
       {therapyStatus === 'report' ? (
@@ -206,34 +210,35 @@ export const Therapy = () => {
             {therapyStatus === 'ongoing' && <AI isSpeaking={isSpeaking} />}
             {therapyStatus === 'ongoing' && (
               <div className="flex flex-col gap-2">
-                <AccentButton className="w-full bg-red-700" onClick={handleDisconnect}>
+                <AccentButton className="w-full bg-red-700 hover:bg-red-800" onClick={handleDisconnect}>
                   <Square className="mr-2 size-4" />
                   End Session
                 </AccentButton>
               </div>
             )}
-
             {therapyStatus === 'notStarted' && <TherapyStart callStatus={callStatus} handleCall={handleCall} />}
-
             {therapyStatus === 'ended' && (
               <>
                 <TherapyEnd setTherapyStatus={setTherapyStatus} />
                 <div className="mt-2 flex flex-col gap-2">
                   {isFetchingAnalysis ? (
-                    <div className="text-center text-sm text-gray-600">
+                    <div className="text-center text-sm text-[#4CAF50]">
                       <p className="animate-pulse">Fetching analysis data...</p>
                     </div>
                   ) : (
                     <>
                       {analysisData && (
-                        <AccentButton className="w-full bg-[#4CAF50] hover:bg-[#3e8e41]" onClick={handleViewReport}>
+                        <AccentButton
+                          className="w-full bg-gradient-to-r from-[#4CAF50] to-[#3e8e41] transition-all duration-300 hover:from-[#3e8e41] hover:to-[#4CAF50]"
+                          onClick={handleViewReport}
+                        >
                           <FileText className="mr-2 size-4" />
                           View Your Report
                         </AccentButton>
                       )}
                       {!analysisData && (
                         <AccentButton
-                          className="w-full border border-[#4CAF50] bg-white text-[#4CAF50] hover:bg-green-50"
+                          className="w-full border border-[#4CAF50] bg-transparent text-[#4CAF50] transition-all duration-300 hover:bg-[#4CAF50]/10"
                           onClick={handleFetchAnalysis}
                           disabled={isFetchingAnalysis}
                         >
@@ -244,16 +249,18 @@ export const Therapy = () => {
                   )}
                 </div>
               </>
-            )}
-
+            )}{' '}
             {therapyStatus === 'error' && (
               <div className="my-auto flex flex-col items-center gap-4">
-                <div className="rounded-md bg-red-50 p-4">
-                  <p className="text-center text-red-700">
+                <div className="rounded-md border border-red-700/30 bg-black/50 p-4 backdrop-blur-sm">
+                  <p className="text-center text-red-400">
                     {errorMessage || 'An error occurred with the therapy session'}
                   </p>
                 </div>
-                <AccentButton className="mt-2 w-full bg-[#4CAF50] hover:bg-[#3e8e41]" onClick={handleRetry}>
+                <AccentButton
+                  className="mt-2 w-full bg-gradient-to-r from-[#4CAF50] to-[#3e8e41] transition-all duration-300 hover:from-[#3e8e41] hover:to-[#4CAF50]"
+                  onClick={handleRetry}
+                >
                   Retry Connection
                 </AccentButton>
               </div>

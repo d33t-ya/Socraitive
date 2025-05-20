@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import Link from 'next/link';
 import { motion, useInView } from 'motion/react';
-import { cn } from '@/lib/utils';
 import { HeartFilledIcon, LightningBoltIcon } from '@radix-ui/react-icons';
 import { ChevronRight, Users, Bot, MousePointerClick } from 'lucide-react';
 import { BackgroundBeams } from '@/components/ui/background-beams';
@@ -323,7 +322,7 @@ export const Hero = () => {
 
           {/* Scroll indicator */}
           <motion.div
-            className="absolute bottom-8 left-1/2 -translate-x-1/2"
+            className="relative top-14 max-sm:top-10"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.2, duration: 0.8 }}

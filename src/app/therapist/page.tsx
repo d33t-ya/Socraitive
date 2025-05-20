@@ -1,12 +1,23 @@
-import React from 'react';
+'use client';
 
+import React from 'react';
 import { NextPage } from 'next';
 import { Therapy } from '@/features/therapist/components';
+import { ResizableNavbar } from '@/components/ui/resizable-navbar';
+import { Footer } from '@/components/custom/footer';
+import { GalaxySpots } from '@/components/ui/galaxy-spots';
 
 const TherapyPage: NextPage = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center p-2 sm:p-4 md:p-6">
-      <Therapy />
+    <div className="flex min-h-screen flex-col bg-black text-white">
+      <ResizableNavbar />
+
+      <div className="relative flex flex-1 items-center justify-center pt-24 md:pt-32 md:pb-21">
+        <GalaxySpots count={30} />
+
+        <Therapy />
+      </div>
+      <Footer />
     </div>
   );
 };
