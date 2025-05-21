@@ -17,7 +17,7 @@ const sidebarItems = [
   { icon: <Home className="h-5 w-5" />, label: 'Overview', href: '/dashboard' },
   { icon: <FileText className="h-5 w-5" />, label: 'Reports', href: '/dashboard/reports' },
   { icon: <MessageCircle className="h-5 w-5" />, label: 'Conversations', href: '/dashboard/conversations' },
-  { icon: <MapPin className="h-5 w-5" />, label: 'Nearby Clinics', href: '/dashboard/nearby-clinics' },
+  { icon: <MapPin className="h-5 w-5" />, label: 'Nearby Clinics', href: '/dashboard/clinics' },
   { icon: <BarChart3 className="h-5 w-5" />, label: 'Analytics', href: '/dashboard/analytics' },
   { icon: <Settings className="h-5 w-5" />, label: 'Settings', href: '/dashboard/settings' },
 ];

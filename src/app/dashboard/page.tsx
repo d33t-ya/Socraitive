@@ -276,7 +276,7 @@ const DashboardPage: NextPage = () => {
                   Find professional therapists and support groups in your area to complement your AI therapy sessions.
                 </p>
               </div>
-              <Link href="/dashboard/nearby-clinics">
+              <Link href="/dashboard/clinics">
                 <AccentButton className="bg-gradient-to-r from-[#4CAF50] to-[#3e8e41]">Find Near Me</AccentButton>
               </Link>
             </div>
