@@ -60,10 +60,9 @@ export const Login = () => {
 
         <Card className="border-zinc-800 bg-zinc-900/70 backdrop-blur-sm">
           <CardHeader className="space-y-2 text-center">
-            <CardTitle className="text-xl font-bold">Welcome Back</CardTitle>
+            <CardTitle className="text-xl font-bold text-white">Welcome Back</CardTitle>
             <CardDescription>Sign in to your account to continue</CardDescription>
           </CardHeader>
-
           <CardContent>
             {error && (
               <div className="mb-4 rounded-md border border-red-700/30 bg-red-900/20 p-3 text-sm text-red-200">
@@ -136,12 +135,12 @@ export const Login = () => {
                 )}
               </AccentButton>
             </form>
-          </CardContent>
+          </CardContent>{' '}
           <CardFooter className="flex flex-col space-y-4">
-            <div className="text-center text-sm">
+            <div className="text-center text-sm text-white">
               Don't have an account?{' '}
-              <Link href="/register" className="text-[#4CAF50] hover:underline">
-                Sign up
+              <Link href="/register" className="text-[#4CAF50] hover:text-[#4CAF50] hover:underline">
+                <span className="text-[#4CAF50]">Sign up</span>
               </Link>
             </div>
           </CardFooter>
