@@ -68,13 +68,13 @@ export const Login = () => {
 
         <Card className="border-zinc-800 bg-zinc-900/70 backdrop-blur-sm">
           <CardHeader className="space-y-2 text-center">
-            <CardTitle className="text-xl font-bold text-white">Welcome Back</CardTitle>
-            <CardDescription>Sign in to your account to continue</CardDescription>
+            <CardTitle className="text-lg font-bold text-white">Welcome Back</CardTitle>
+            <CardDescription className="text-xs">Sign in to your account to continue</CardDescription>
           </CardHeader>
 
           <CardContent>
             {error && (
-              <div className="mb-4 rounded-md border border-red-700/30 bg-red-900/20 p-3 text-sm text-red-200">
+              <div className="mb-4 rounded-md border border-red-700/30 bg-red-900/20 p-3 text-xs text-red-200">
                 {error}
               </div>
             )}
@@ -86,7 +86,7 @@ export const Login = () => {
                   name="email"
                   render={({ field }) => (
                     <FormItem className="space-y-2">
-                      <FormLabel className="text-sm font-medium text-zinc-200">Email</FormLabel>
+                      <FormLabel className="text-xs font-medium text-zinc-200">Email</FormLabel>
                       <FormControl>
                         <Input
                           type="email"
@@ -106,7 +106,7 @@ export const Login = () => {
                   render={({ field }) => (
                     <FormItem className="space-y-2">
                       <div className="flex items-center justify-between">
-                        <FormLabel className="text-sm font-medium text-zinc-200">Password</FormLabel>
+                        <FormLabel className="text-xs font-medium text-zinc-200">Password</FormLabel>
                         <Link
                           href="/forgot-password"
                           className="text-xs text-[#4CAF50] hover:text-[#4CAF50] hover:underline"
@@ -136,10 +136,10 @@ export const Login = () => {
                         <Checkbox
                           checked={field.value}
                           onCheckedChange={field.onChange}
-                          className="border-zinc-500 data-[state=checked]:border-[#4CAF50] data-[state=unchecked]:border-zinc-700 data-[state=checked]:bg-[#4CAF50] data-[state=unchecked]:bg-zinc-300"
+                          className="mt-1 border-zinc-500 data-[state=checked]:border-[#4CAF50] data-[state=unchecked]:border-zinc-700 data-[state=checked]:bg-[#4CAF50] data-[state=unchecked]:bg-zinc-800"
                         />
                       </FormControl>
-                      <FormLabel className="text-sm font-medium text-zinc-300">Remember me</FormLabel>
+                      <FormLabel className="text-xs font-medium text-zinc-300">Remember me</FormLabel>
                     </FormItem>
                   )}
                 />
@@ -165,7 +165,7 @@ export const Login = () => {
           </CardContent>
 
           <CardFooter className="flex flex-col space-y-4">
-            <div className="text-center text-sm text-white">
+            <div className="text-center text-xs text-white">
               Don't have an account?{' '}
               <Link href="/register" className="text-[#4CAF50] hover:text-[#4CAF50] hover:underline">
                 <span className="text-[#4CAF50]">Sign up</span>
@@ -174,7 +174,7 @@ export const Login = () => {
           </CardFooter>
         </Card>
 
-        <div className="mt-8 text-center text-sm text-zinc-500">
+        <div className="mt-8 text-center text-xs text-zinc-500">
           <p>&copy; {new Date().getFullYear()} Emma AI Therapist. All rights reserved.</p>
         </div>
       </div>

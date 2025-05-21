@@ -3,59 +3,65 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
 import { motion } from 'motion/react';
-import { AccentButton } from '@/components/custom';
-import { HeartFilledIcon } from '@radix-ui/react-icons';
+import { HeartFilledIcon, ReloadIcon } from '@radix-ui/react-icons';
+
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { GalaxySpots } from '@/components/ui/galaxy-spots';
 import { SparklesEffect } from '@/components/ui/sparkles-effect';
 import { BackgroundBeams } from '@/components/ui/background-beams';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Checkbox } from '@/components/ui/checkbox';
+
+import { registerSchema } from '../schema';
+import { RegisterFormValues } from '../types';
 
 export const Register = () => {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
+  const [error, setError] = useState<string | null>(null);
 
-  const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError('');
+  const form = useForm<RegisterFormValues>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      agreeToTerms: false,
+    },
+  });
 
-    // Simple validation
-    if (password !== confirmPassword) {
-      setError('Passwords do not match');
-      return;
-    }
+  const isSubmitting = form.formState.isSubmitting;
 
-    setIsLoading(true);
+  const onSubmit = async (values: RegisterFormValues) => {
+    setError(null);
+  };
 
-    // Mock registration - normally this would call an API
-    setTimeout(() => {
-      setIsLoading(false);
-      router.push('/dashboard');
-    }, 1000);
+  const handleGoogleSignIn = () => {
+    // Implement Google Sign-In logic here
   };
 
   return (
-    <>
+    <div className="relative flex h-screen w-full items-center justify-center overflow-hidden">
       <BackgroundBeams />
-      <GalaxySpots count={30} />
+      <GalaxySpots count={20} />
       <SparklesEffect />
 
-      <div className="container w-full max-w-md px-4">
+      <div className="container z-10 w-full max-w-md px-4">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-10 text-center"
+          transition={{ duration: 0.3 }}
+          className="mb-4 text-center"
         >
           <Link href="/" className="inline-flex items-center justify-center gap-2">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#4CAF50] to-[#8BC34A]">
-              <HeartFilledIcon className="size-5 text-white" />
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[#4CAF50] to-[#8BC34A]">
+              <HeartFilledIcon className="size-4 text-white" />
             </div>
             <div className="font-normal">
               <span className="font-bold text-white">Emma</span>
@@ -67,144 +73,218 @@ export const Register = () => {
           </Link>
         </motion.div>
 
-        <Card className="border-zinc-800 bg-zinc-900/70 backdrop-blur-sm">
-          <CardHeader className="space-y-2 text-center">
-            <CardTitle className="text-xl font-bold">Create an Account</CardTitle>
-            <CardDescription>Sign up to get started with Emma</CardDescription>
+        <Card className="border-zinc-800 bg-zinc-900/80 backdrop-blur-sm">
+          <CardHeader className="space-y-1 pb-4 text-center">
+            <CardTitle className="text-lg font-bold text-white">Create an Account</CardTitle>
+            <CardDescription className="text-xs">Sign up to get started with Emma</CardDescription>
           </CardHeader>
 
-          <CardContent>
+          <CardContent className="pb-3 pt-0">
             {error && (
-              <div className="mb-4 rounded-md border border-red-700/30 bg-red-900/20 p-3 text-sm text-red-200">
+              <div className="mb-3 rounded-md border border-red-700/30 bg-red-900/20 p-2 text-xs text-red-200">
                 {error}
               </div>
             )}
-            <form onSubmit={handleRegister} className="space-y-4">
-              <div className="space-y-2">
-                <label htmlFor="name" className="text-sm font-medium text-zinc-200">
-                  Full Name
-                </label>
-                <input
-                  id="name"
-                  type="text"
-                  placeholder="John Doe"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                  className="w-full rounded-md border border-zinc-700 bg-zinc-800 px-4 py-2 text-white focus:border-[#4CAF50] focus:outline-none"
-                />
-              </div>
 
-              <div className="space-y-2">
-                <label htmlFor="email" className="text-sm font-medium text-zinc-200">
-                  Email
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  placeholder="name@example.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="w-full rounded-md border border-zinc-700 bg-zinc-800 px-4 py-2 text-white focus:border-[#4CAF50] focus:outline-none"
+            <Button
+              variant="outline"
+              onClick={handleGoogleSignIn}
+              className="mb-3 w-full border-zinc-700 bg-zinc-800 text-sm text-white hover:bg-zinc-700 hover:text-white"
+            >
+              <svg className="mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                <path
+                  fill="#FFC107"
+                  d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"
                 />
-              </div>
-
-              <div className="space-y-2">
-                <label htmlFor="password" className="text-sm font-medium text-zinc-200">
-                  Password
-                </label>
-                <input
-                  id="password"
-                  type="password"
-                  placeholder="••••••••"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="w-full rounded-md border border-zinc-700 bg-zinc-800 px-4 py-2 text-white focus:border-[#4CAF50] focus:outline-none"
+                <path
+                  fill="#FF3D00"
+                  d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"
                 />
-              </div>
-
-              <div className="space-y-2">
-                <label htmlFor="confirmPassword" className="text-sm font-medium text-zinc-200">
-                  Confirm Password
-                </label>
-                <input
-                  id="confirmPassword"
-                  type="password"
-                  placeholder="••••••••"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  required
-                  className="w-full rounded-md border border-zinc-700 bg-zinc-800 px-4 py-2 text-white focus:border-[#4CAF50] focus:outline-none"
+                <path
+                  fill="#4CAF50"
+                  d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"
                 />
-              </div>
-
-              <div className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  id="terms"
-                  required
-                  className="h-4 w-4 rounded border-gray-300 bg-zinc-800 text-[#4CAF50] focus:ring-[#4CAF50]"
+                <path
+                  fill="#1976D2"
+                  d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
                 />
-                <label htmlFor="terms" className="text-xs text-zinc-400">
-                  I agree to the{' '}
-                  <a href="#" className="text-[#4CAF50] hover:underline">
-                    Terms of Service
-                  </a>{' '}
-                  and{' '}
-                  <a href="#" className="text-[#4CAF50] hover:underline">
-                    Privacy Policy
-                  </a>
-                </label>
-              </div>
+              </svg>
+              Sign in with Google
+            </Button>
 
-              <AccentButton
-                type="submit"
-                className="w-full bg-gradient-to-r from-[#4CAF50] to-[#3e8e41]"
-                disabled={isLoading}
-              >
-                {isLoading ? (
-                  <div className="flex items-center justify-center">
-                    <svg className="mr-2 h-4 w-4 animate-spin" viewBox="0 0 24 24">
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                        fill="none"
-                      />
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      />
-                    </svg>
-                    <span>Creating Account...</span>
-                  </div>
-                ) : (
-                  'Create Account'
-                )}
-              </AccentButton>
-            </form>
+            <div className="relative mb-3">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-zinc-700"></div>
+              </div>
+              <div className="relative flex justify-center text-xs">
+                <span className="bg-zinc-900 px-2 text-zinc-400">OR</span>
+              </div>
+            </div>
+
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+                <div className="flex gap-2">
+                  <FormField
+                    control={form.control}
+                    name="firstName"
+                    render={({ field }) => (
+                      <FormItem className="flex-1 space-y-1">
+                        <FormLabel className="text-xs font-medium text-zinc-200">First Name</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="text"
+                            placeholder="John"
+                            className="h-9 rounded-md border border-zinc-700 bg-zinc-800 px-3 py-1 text-sm text-white focus:border-[#4CAF50] focus:outline-none focus:ring-1 focus:ring-[#4CAF50]"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-[10px] text-red-400" />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="lastName"
+                    render={({ field }) => (
+                      <FormItem className="flex-1 space-y-1">
+                        <FormLabel className="text-xs font-medium text-zinc-200">Last Name</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="text"
+                            placeholder="Doe"
+                            className="h-9 rounded-md border border-zinc-700 bg-zinc-800 px-3 py-1 text-sm text-white focus:border-[#4CAF50] focus:outline-none focus:ring-1 focus:ring-[#4CAF50]"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-[10px] text-red-400" />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem className="space-y-1">
+                      <FormLabel className="text-xs font-medium text-zinc-200">Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="email"
+                          placeholder="name@example.com"
+                          className="h-9 rounded-md border border-zinc-700 bg-zinc-800 px-3 py-1 text-sm text-white focus:border-[#4CAF50] focus:outline-none focus:ring-1 focus:ring-[#4CAF50]"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage className="text-[10px] text-red-400" />
+                    </FormItem>
+                  )}
+                />
+
+                <div className="flex gap-2">
+                  <FormField
+                    control={form.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem className="flex-1 space-y-1">
+                        <FormLabel className="text-xs font-medium text-zinc-200">Password</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="password"
+                            placeholder="••••••••"
+                            className="h-9 rounded-md border border-zinc-700 bg-zinc-800 px-3 py-1 text-sm text-white focus:border-[#4CAF50] focus:outline-none focus:ring-1 focus:ring-[#4CAF50]"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-[10px] text-red-400" />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="confirmPassword"
+                    render={({ field }) => (
+                      <FormItem className="flex-1 space-y-1">
+                        <FormLabel className="text-xs font-medium text-zinc-200">Confirm</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="password"
+                            placeholder="••••••••"
+                            className="h-9 rounded-md border border-zinc-700 bg-zinc-800 px-3 py-1 text-sm text-white focus:border-[#4CAF50] focus:outline-none focus:ring-1 focus:ring-[#4CAF50]"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-[10px] text-red-400" />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <FormField
+                  control={form.control}
+                  name="agreeToTerms"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-row items-start space-x-2 space-y-0">
+                      <FormControl>
+                        <Checkbox
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                          className="mt-0.5 h-3.5 w-3.5 border-zinc-500 data-[state=checked]:border-[#4CAF50] data-[state=unchecked]:border-zinc-700 data-[state=checked]:bg-[#4CAF50] data-[state=unchecked]:bg-zinc-800"
+                        />
+                      </FormControl>
+
+                      <div className="leading-none">
+                        <FormLabel className="text-[10px] text-zinc-400">
+                          I agree to the{' '}
+                          <Link href="#" className="text-[#4CAF50] hover:text-[#4CAF50] hover:underline">
+                            <span className="text-[#4CAF50]">Terms</span>
+                          </Link>{' '}
+                          and{' '}
+                          <Link href="#" className="text-[#4CAF50] hover:text-[#4CAF50] hover:underline">
+                            <span className="text-[#4CAF50]">Privacy Policy</span>
+                          </Link>
+                        </FormLabel>
+                        <FormMessage className="text-[10px] text-red-400 mt-2" />
+                      </div>
+                    </FormItem>
+                  )}
+                />
+
+                <Button
+                  type="submit"
+                  variant="accent"
+                  size="sm"
+                  disabled={isSubmitting}
+                  className="mt-0 w-full bg-gradient-to-r from-[#4CAF50] to-[#3e8e41] py-2 text-sm"
+                >
+                  {isSubmitting ? (
+                    <div className="flex items-center justify-center">
+                      <ReloadIcon className="mr-2 h-3 w-3 animate-spin" />
+                      <span>Creating Account...</span>
+                    </div>
+                  ) : (
+                    'Create Account'
+                  )}
+                </Button>
+              </form>
+            </Form>
           </CardContent>
 
-          <CardFooter className="flex flex-col space-y-4">
-            <div className="text-center text-sm">
+          <CardFooter className="border-t border-zinc-800 pb-3 pt-3">
+            <div className="w-full text-center text-xs text-zinc-400">
               Already have an account?{' '}
-              <Link href="/login" className="text-[#4CAF50] hover:underline">
-                Sign in
+              <Link href="/login" className="text-[#4CAF50] hover:text-[#4CAF50] hover:underline">
+                <span className="text-[#4CAF50]">Sign in</span>
               </Link>
             </div>
           </CardFooter>
         </Card>
 
-        <div className="mt-8 text-center text-sm text-zinc-500">
+        <div className="mt-8 text-center text-xs text-zinc-500">
           <p>&copy; {new Date().getFullYear()} Emma AI Therapist. All rights reserved.</p>
         </div>
       </div>
-    </>
+    </div>
   );
 };

@@ -6,7 +6,7 @@ const RegisterPage: NextPage = () => {
   return (
     <>
       <div className="flex min-h-screen flex-col bg-black text-white">
-        <div className="relative flex flex-1 items-center justify-center py-12">
+        <div className="relative flex flex-1 items-center justify-center py-0">
           <Register />
         </div>
       </div>
