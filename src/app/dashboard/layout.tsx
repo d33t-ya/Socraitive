@@ -1,13 +1,14 @@
 'use client';
 
 import React, { ReactNode, useState } from 'react';
-import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import Link from 'next/link';
+
 import { AccentButton } from '@/components/custom';
+import { motion, AnimatePresence } from 'motion/react';
 import { HeartFilledIcon } from '@radix-ui/react-icons';
 import { GalaxySpots } from '@/components/ui/galaxy-spots';
 import { Home, FileText, MessageCircle, BarChart3, MapPin, Settings, LogOut, User, Menu, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
 
 interface DashboardLayoutProps {
   children: ReactNode;
