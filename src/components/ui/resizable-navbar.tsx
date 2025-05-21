@@ -58,15 +58,14 @@ export const ResizableNavbar: React.FC = () => {
           <NavbarButton
             variant="secondary"
             as="a"
-            href="https://github.com/Swanand-Wagh/Socraitive"
+            href="https://calendly.com/swanandwagh/alias"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2"
           >
-            <span>Github</span>
-            <GitHubLogoIcon className="size-4" />
+            <span>Book a Demo</span>
           </NavbarButton>
-          <NavbarButton variant="primary" href="/therapist">
+          <NavbarButton variant="primary" href="/login">
             Get Started
           </NavbarButton>
         </div>
@@ -107,22 +106,16 @@ export const ResizableNavbar: React.FC = () => {
           <div className="mt-4 flex w-full flex-col gap-4">
             <NavbarButton
               as="a"
-              href="https://github.com/Swanand-Wagh/Socraitive"
+              href="https://calendly.com/swanandwagh/alias"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setIsMobileMenuOpen(false)}
               variant="secondary"
               className="flex w-full items-center justify-center gap-2"
             >
-              <span>Github</span>
-              <GitHubLogoIcon className="size-4" />
+              <span>Book a Demo</span>
             </NavbarButton>
-            <NavbarButton
-              href="/therapist"
-              onClick={() => setIsMobileMenuOpen(false)}
-              variant="primary"
-              className="w-full"
-            >
+            <NavbarButton href="/login" onClick={() => setIsMobileMenuOpen(false)} variant="primary" className="w-full">
               Get Started
             </NavbarButton>
           </div>

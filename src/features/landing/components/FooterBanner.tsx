@@ -22,7 +22,7 @@ export const FooterBanner = () => {
                 </p>
               </div>
               <Link
-                href="/therapist"
+                href="/login"
                 className="inline-flex h-14 items-center justify-center rounded-md bg-gradient-to-r from-[#4CAF50] to-[#8BC34A] px-8 py-3 text-base font-medium text-white shadow-[0_0_20px_rgba(76,175,80,0.3)] transition-all hover:shadow-[0_0_25px_rgba(76,175,80,0.5)] focus:outline-none"
               >
                 <HeartFilledIcon className="mr-2 size-5" />
