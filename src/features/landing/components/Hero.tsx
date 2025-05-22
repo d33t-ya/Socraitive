@@ -127,119 +127,22 @@ export const Hero = () => {
             </motion.div>
           </motion.div>
 
-          {/* Modern chat mockup with gradient border and card component */}
+          {/* Video demo with gradient border */}
           <BorderGradient containerClassName="w-full max-w-4xl mt-6 md:mt-8">
             <Card className="overflow-hidden border-none bg-zinc-900/80 backdrop-blur-sm">
               <motion.div
                 initial={{ y: 60, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.7, delay: 0.5 }}
+                className="relative"
               >
-                <CardHeader className="border-b border-zinc-800 bg-zinc-900 p-4">
-                  <div className="flex items-center gap-3">
-                    <motion.span
-                      className="flex h-10 w-10 items-center justify-center rounded-full bg-[#4CAF50]/20 p-1.5"
-                      whileHover={{ rotate: [0, -10, 10, -10, 0] }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      <HeartFilledIcon className="size-5 text-[#4CAF50]" />
-                    </motion.span>
-                    <div>
-                      <Typography as="h3" variant="h4" className="font-medium text-white">
-                        Emma - AI Therapist
-                      </Typography>
-                      <div className="flex items-center gap-1 text-xs text-zinc-400">
-                        <motion.span
-                          className="h-1.5 w-1.5 rounded-full bg-green-500"
-                          animate={{ scale: [1, 1.2, 1] }}
-                          transition={{ duration: 2, repeat: Infinity }}
-                        ></motion.span>
-                        <span>Online now</span>
-                      </div>
-                    </div>
-                  </div>
-                </CardHeader>
-
-                <CardContent className="h-64 overflow-y-auto p-4 md:h-72">
-                  <div className="mb-4 flex justify-end">
-                    <motion.div
-                      className="max-w-[80%] rounded-xl rounded-tr-none bg-zinc-800 p-3 text-white"
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      <p className="text-sm">
-                        I've been feeling really anxious about my new job. It's overwhelming me.
-                      </p>
-                    </motion.div>
-                  </div>
-                  <motion.div
-                    className="mb-4 flex"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                  >
-                    <div className="max-w-[80%] rounded-xl rounded-tl-none bg-[#4CAF50]/10 p-3 text-zinc-200">
-                      <p className="text-sm">
-                        I understand that new jobs can bring a lot of uncertainty and pressure. It's completely normal
-                        to feel anxious in this situation. Would you like to talk about what specifically feels
-                        overwhelming?
-                      </p>
-                    </div>
-                  </motion.div>
-                  <motion.div
-                    className="mb-4 flex justify-end"
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: 0.4 }}
-                  >
-                    <div className="max-w-[80%] rounded-xl rounded-tr-none bg-zinc-800 p-3 text-white">
-                      <p className="text-sm">
-                        I think it's the expectations. I'm afraid I won't be able to perform well.
-                      </p>
-                    </div>
-                  </motion.div>
-                  <motion.div
-                    className="flex"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: 0.6 }}
-                  >
-                    <div className="max-w-[80%] rounded-xl rounded-tl-none bg-[#4CAF50]/10 p-3 text-zinc-200">
-                      <p className="text-sm">
-                        That concern is very common. Let's explore some strategies that might help you manage these
-                        feelings and build confidence in your abilities...
-                      </p>
-                    </div>
-                  </motion.div>
-                </CardContent>
-
-                {/* Chat input bar */}
-                <CardFooter className="border-t border-zinc-800 bg-zinc-900/50 p-3">
-                  <div className="flex w-full items-center gap-2">
-                    <motion.div
-                      className="flex flex-1 items-center rounded-full border border-zinc-700 bg-zinc-800 px-4 py-2"
-                      whileHover={{ borderColor: 'rgba(76, 175, 80, 0.5)' }}
-                    >
-                      <input
-                        type="text"
-                        placeholder="Type your message..."
-                        className="flex-1 bg-transparent text-sm text-white outline-none placeholder:text-zinc-500"
-                        disabled
-                        aria-label="Chat message input (display only)"
-                      />
-                      <motion.button
-                        className="ml-2 flex h-8 w-8 items-center justify-center rounded-full bg-[#4CAF50] text-white"
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-                        aria-label="Send message (display only)"
-                      >
-                        <ChevronRight className="size-4" />
-                      </motion.button>
-                    </motion.div>
-                  </div>
-                </CardFooter>
+                <div className="relative">
+                  {/* Video player that plays infinitely without controls */}
+                  <video autoPlay loop muted playsInline className="h-auto w-full" style={{ aspectRatio: '16/9' }}>
+                    <source src="/emma_demo.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
               </motion.div>
             </Card>
           </BorderGradient>
