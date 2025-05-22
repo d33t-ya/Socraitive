@@ -42,10 +42,6 @@ export const Register = () => {
     setError(null);
   };
 
-  const handleGoogleSignIn = () => {
-    // Implement Google Sign-In logic here
-  };
-
   return (
     <div className="relative flex h-screen w-full items-center justify-center overflow-hidden">
       <BackgroundBeams />
@@ -85,10 +81,14 @@ export const Register = () => {
                 {error}
               </div>
             )}
+            {/* {successMessage && (
+              <div className="mb-4 rounded-md border border-green-700/30 bg-green-900/20 p-3 text-xs text-green-200">
+                {successMessage}
+              </div>
+            )} */}
 
             <Button
               variant="outline"
-              onClick={handleGoogleSignIn}
               className="mb-3 w-full border-zinc-700 bg-zinc-800 text-sm text-white hover:bg-zinc-700 hover:text-white"
             >
               <svg className="mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
@@ -109,7 +109,7 @@ export const Register = () => {
                   d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
                 />
               </svg>
-              Sign in with Google
+              Sign up with Google
             </Button>
 
             <div className="relative mb-3">

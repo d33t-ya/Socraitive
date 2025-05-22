@@ -1,6 +1,12 @@
 import React from 'react';
 import { NextPage } from 'next';
 import { Register } from '@/features/auth/register/components';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Register | Emma AI Therapist',
+  description: 'Create a new account for Emma AI Therapist',
+};
 
 const RegisterPage: NextPage = () => {
   return (
