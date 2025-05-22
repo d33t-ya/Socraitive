@@ -11,7 +11,7 @@ export const registerSchema = z
       .regex(/^[A-Za-z0-9!@#$%^&*()_+=\-`~,.<>?/;:'"\[\]{}|]+$/, {
         message: 'Password contains invalid characters.',
       }),
-    confirmPassword: z.string().min(1, { message: 'Please confirm your password' }),
+    confirmPassword: z.string().min(1, { message: 'Confirm your password' }),
     agreeToTerms: z.boolean().refine((value) => value === true, {
       message: 'You must agree to the terms and privacy policy',
     }),

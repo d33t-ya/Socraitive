@@ -52,7 +52,7 @@ export const Register = () => {
       <GalaxySpots count={20} />
       <SparklesEffect />
 
-      <div className="container z-10 w-full max-w-md px-4">
+      <div className="container z-10 w-full max-w-lg px-4">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -75,8 +75,8 @@ export const Register = () => {
 
         <Card className="border-zinc-800 bg-zinc-900/80 backdrop-blur-sm">
           <CardHeader className="space-y-1 pb-4 text-center">
-            <CardTitle className="text-lg font-bold text-white">Create an Account</CardTitle>
-            <CardDescription className="text-xs">Sign up to get started with Emma</CardDescription>
+            <CardTitle className="text-xl font-bold text-white">Create an Account</CardTitle>
+            <CardDescription className="text-sm">Sign up to get started with Emma</CardDescription>
           </CardHeader>
 
           <CardContent className="pb-3 pt-0">
@@ -129,7 +129,7 @@ export const Register = () => {
                     name="firstName"
                     render={({ field }) => (
                       <FormItem className="flex-1 space-y-1">
-                        <FormLabel className="text-xs font-medium text-zinc-200">First Name</FormLabel>
+                        <FormLabel className="text-sm font-medium text-zinc-200">First Name</FormLabel>
                         <FormControl>
                           <Input
                             type="text"
@@ -138,7 +138,7 @@ export const Register = () => {
                             {...field}
                           />
                         </FormControl>
-                        <FormMessage className="text-[10px] text-red-400" />
+                        <FormMessage className="text-[10px] text-xs text-red-400" />
                       </FormItem>
                     )}
                   />
@@ -147,7 +147,7 @@ export const Register = () => {
                     name="lastName"
                     render={({ field }) => (
                       <FormItem className="flex-1 space-y-1">
-                        <FormLabel className="text-xs font-medium text-zinc-200">Last Name</FormLabel>
+                        <FormLabel className="text-sm font-medium text-zinc-200">Last Name</FormLabel>
                         <FormControl>
                           <Input
                             type="text"
@@ -156,7 +156,7 @@ export const Register = () => {
                             {...field}
                           />
                         </FormControl>
-                        <FormMessage className="text-[10px] text-red-400" />
+                        <FormMessage className="text-[10px] text-xs text-red-400" />
                       </FormItem>
                     )}
                   />
@@ -167,7 +167,7 @@ export const Register = () => {
                   name="email"
                   render={({ field }) => (
                     <FormItem className="space-y-1">
-                      <FormLabel className="text-xs font-medium text-zinc-200">Email</FormLabel>
+                      <FormLabel className="text-sm font-medium text-zinc-200">Email</FormLabel>
                       <FormControl>
                         <Input
                           type="email"
@@ -176,7 +176,7 @@ export const Register = () => {
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage className="text-[10px] text-red-400" />
+                      <FormMessage className="text-[10px] text-xs text-red-400" />
                     </FormItem>
                   )}
                 />
@@ -187,7 +187,7 @@ export const Register = () => {
                     name="password"
                     render={({ field }) => (
                       <FormItem className="flex-1 space-y-1">
-                        <FormLabel className="text-xs font-medium text-zinc-200">Password</FormLabel>
+                        <FormLabel className="text-sm font-medium text-zinc-200">Password</FormLabel>
                         <FormControl>
                           <Input
                             type="password"
@@ -196,7 +196,7 @@ export const Register = () => {
                             {...field}
                           />
                         </FormControl>
-                        <FormMessage className="text-[10px] text-red-400" />
+                        <FormMessage className="text-[10px] text-xs text-red-400" />
                       </FormItem>
                     )}
                   />
@@ -206,7 +206,7 @@ export const Register = () => {
                     name="confirmPassword"
                     render={({ field }) => (
                       <FormItem className="flex-1 space-y-1">
-                        <FormLabel className="text-xs font-medium text-zinc-200">Confirm</FormLabel>
+                        <FormLabel className="text-sm font-medium text-zinc-200">Confirm</FormLabel>
                         <FormControl>
                           <Input
                             type="password"
@@ -215,7 +215,7 @@ export const Register = () => {
                             {...field}
                           />
                         </FormControl>
-                        <FormMessage className="text-[10px] text-red-400" />
+                        <FormMessage className="text-[10px] text-xs text-red-400" />
                       </FormItem>
                     )}
                   />
@@ -235,7 +235,7 @@ export const Register = () => {
                       </FormControl>
 
                       <div className="leading-none">
-                        <FormLabel className="text-[10px] text-zinc-400">
+                        <FormLabel className="text-[10px] text-sm text-zinc-400">
                           I agree to the{' '}
                           <Link href="#" className="text-[#4CAF50] hover:text-[#4CAF50] hover:underline">
                             <span className="text-[#4CAF50]">Terms</span>
@@ -245,7 +245,7 @@ export const Register = () => {
                             <span className="text-[#4CAF50]">Privacy Policy</span>
                           </Link>
                         </FormLabel>
-                        <FormMessage className="text-[10px] text-red-400 mt-2" />
+                        <FormMessage className="mt-2 text-[10px] text-xs text-red-400" />
                       </div>
                     </FormItem>
                   )}
@@ -272,7 +272,7 @@ export const Register = () => {
           </CardContent>
 
           <CardFooter className="border-t border-zinc-800 pb-3 pt-3">
-            <div className="w-full text-center text-xs text-zinc-400">
+            <div className="w-full text-center text-sm text-zinc-400">
               Already have an account?{' '}
               <Link href="/login" className="text-[#4CAF50] hover:text-[#4CAF50] hover:underline">
                 <span className="text-[#4CAF50]">Sign in</span>
