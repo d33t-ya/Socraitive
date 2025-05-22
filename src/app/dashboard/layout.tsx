@@ -98,10 +98,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           </nav>
 
           <div className="border-t border-zinc-800 p-4">
-            <div className="flex items-center gap-3 rounded-lg px-3 py-2">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-zinc-800">
-                <User className="h-5 w-5" />
-              </div>
+            <div className="flex items-center gap-3 rounded-lg py-2">
               <div className="flex-1">
                 <p className="text-sm font-medium">Swanand Wagh</p>
                 <p className="text-xs text-zinc-400">swanandwagh7@gmail.com</p>

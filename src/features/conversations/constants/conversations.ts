@@ -6,6 +6,12 @@ export const mockConversations = [
     duration: '24 minutes',
     title: 'Work Anxiety Discussion',
     previewText: "I've been feeling really overwhelmed at work lately...",
+    mood: 'Concerned',
+    insights: [
+      'Shows significant work-related anxiety',
+      'Difficulty with boundary setting',
+      'Potential for burnout if not addressed',
+    ],
     messages: [
       {
         role: 'user',
@@ -51,6 +57,12 @@ export const mockConversations = [
     duration: '32 minutes',
     title: 'Sleep Pattern Analysis',
     previewText: "I've been having trouble sleeping lately. I keep waking up...",
+    mood: 'Frustrated',
+    insights: [
+      'Sleep disruption likely linked to evening routine',
+      'Screen use affecting sleep quality',
+      'Potential alcohol impact on sleep cycles',
+    ],
     messages: [
       {
         role: 'user',
@@ -91,6 +103,12 @@ export const mockConversations = [
     duration: '40 minutes',
     title: 'Relationship Boundaries',
     previewText: 'I need help with setting boundaries with my friend. She keeps...',
+    mood: 'Conflicted',
+    insights: [
+      'Difficulty with personal boundaries',
+      'Fear of relationship damage',
+      'Pattern of people-pleasing behavior',
+    ],
     messages: [
       {
         role: 'user',
@@ -131,6 +149,12 @@ export const mockConversations = [
     duration: '28 minutes',
     title: 'Stress Management Techniques',
     previewText: 'My stress levels have been through the roof lately...',
+    mood: 'Overwhelmed',
+    insights: [
+      'Current coping techniques insufficient',
+      'Open to learning new strategies',
+      'Showing awareness of stress impact',
+    ],
     messages: [
       {
         role: 'user',
@@ -160,6 +184,12 @@ export const mockConversations = [
     duration: '35 minutes',
     title: 'Self-Compassion Development',
     previewText: "I'm always so hard on myself. I can never seem to...",
+    mood: 'Negative',
+    insights: [
+      'Strong pattern of self-criticism',
+      'Double standard between self and others',
+      'Potential for self-compassion practices',
+    ],
     messages: [
       {
         role: 'user',

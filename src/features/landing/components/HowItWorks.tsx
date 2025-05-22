@@ -10,7 +10,7 @@ import { steps } from '../constants/howItWorks';
 export const HowItWorks = () => {
   return (
     <>
-      <section id='how-it-works' className="relative w-full bg-black py-20 md:py-32">
+      <section id="how-it-works" className="relative w-full bg-black py-20 md:py-32">
         <SparklesEffect count={35} />
 
         <div className="container mx-auto max-w-6xl px-4">

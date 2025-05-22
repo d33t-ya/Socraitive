@@ -2,22 +2,10 @@
 import React, { useState } from 'react';
 
 import { motion } from 'motion/react';
-import { AccentButton } from '@/components/custom';
+import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import {
-  Bell,
-  Lock,
-  User,
-  Globe,
-  FileText,
-  Trash2,
-  Save,
-  ToggleLeft,
-  ToggleRight,
-  ChevronDown,
-  Shield,
-  ExternalLink,
-} from 'lucide-react';
+import { Bell, Lock, User, Globe, FileText, Trash2, Save, ChevronDown, Shield, ExternalLink } from 'lucide-react';
 import { SparklesEffect } from '@/components/ui/sparkles-effect';
 
 interface SettingItemProps {
@@ -46,15 +34,16 @@ interface ToggleProps {
 
 const Toggle: React.FC<ToggleProps> = ({ enabled, onChange, label }) => {
   return (
-    <button
-      onClick={onChange}
-      className={`relative inline-flex h-6 w-11 items-center rounded-full ${enabled ? 'bg-[#4CAF50]' : 'bg-zinc-700'}`}
-    >
-      <span
-        className={`inline-block h-4 w-4 transform rounded-full bg-white transition ${enabled ? 'translate-x-6' : 'translate-x-1'}`}
+    <div className="flex items-center">
+      <Switch
+        checked={enabled}
+        onCheckedChange={onChange}
+        className={
+          enabled ? 'bg-[#4CAF50] data-[state=checked]:bg-[#4CAF50]' : 'bg-zinc-700 data-[state=unchecked]:bg-zinc-700'
+        }
       />
       {label && <span className="ml-3 text-sm">{label}</span>}
-    </button>
+    </div>
   );
 };
 
@@ -90,11 +79,11 @@ export const Settings = () => {
         <div>
           <h1 className="text-2xl font-bold">Settings</h1>
           <p className="mt-1 text-zinc-400">Manage your account settings and preferences</p>
-        </div>
-        <AccentButton className="bg-gradient-to-r from-[#4CAF50] to-[#3e8e41]">
+        </div>{' '}
+        <Button variant="accent" className="bg-gradient-to-r from-[#4CAF50] to-[#3e8e41]">
           <Save className="mr-2 h-4 w-4" />
           Save Changes
-        </AccentButton>
+        </Button>
       </motion.div>
 
       {/* Settings sections */}
@@ -125,10 +114,10 @@ export const Settings = () => {
                     <div className="flex-1">
                       <h3 className="text-base font-medium">Swanand Wagh</h3>
                       <p className="text-sm text-zinc-400">swanandwagh7@gmail.com</p>
-                    </div>
-                    <AccentButton className="border border-zinc-700 bg-zinc-800 hover:bg-zinc-700">
+                    </div>{' '}
+                    <Button variant="outline" className="border-zinc-700 bg-zinc-800 hover:bg-zinc-700">
                       Change Avatar
-                    </AccentButton>
+                    </Button>
                   </div>
                 </div>
 
@@ -138,28 +127,33 @@ export const Settings = () => {
                       type="email"
                       value="swanandwagh7@gmail.com"
                       className="w-full rounded-md border border-zinc-700 bg-zinc-800 px-3 py-1.5 text-sm text-white"
-                    />
-                    <AccentButton className="border border-zinc-700 bg-zinc-800 hover:bg-zinc-700">
+                    />{' '}
+                    <Button variant="outline" className="border-zinc-700 bg-zinc-800 hover:bg-zinc-700">
                       Update Email
-                    </AccentButton>
+                    </Button>
                   </div>
                 </SettingItem>
 
                 <SettingItem title="Change Password" description="Update your password for added security">
-                  <AccentButton className="border border-zinc-700 bg-zinc-800 hover:bg-zinc-700">
+                  {' '}
+                  <Button variant="outline" className="border-zinc-700 bg-zinc-800 hover:bg-zinc-700">
                     <Lock className="mr-2 h-4 w-4" />
                     Reset Password
-                  </AccentButton>
+                  </Button>
                 </SettingItem>
 
                 <SettingItem
                   title="Delete Account"
                   description="Permanently delete your account and all associated data"
                 >
-                  <AccentButton className="border border-red-900/30 bg-red-950/30 text-red-400 hover:bg-red-900/50 hover:text-red-200">
+                  {' '}
+                  <Button
+                    variant="destructive"
+                    className="border-red-900/30 bg-red-950/30 text-red-400 hover:bg-red-900/50 hover:text-red-200"
+                  >
                     <Trash2 className="mr-2 h-4 w-4" />
                     Delete Account
-                  </AccentButton>
+                  </Button>
                 </SettingItem>
               </CardContent>
             )}
@@ -237,17 +231,19 @@ export const Settings = () => {
                   title="Download Your Data"
                   description="Export all your conversation history and therapy data"
                 >
-                  <AccentButton className="border border-zinc-700 bg-zinc-800 hover:bg-zinc-700">
+                  {' '}
+                  <Button variant="outline" className="border-zinc-700 bg-zinc-800 hover:bg-zinc-700">
                     <FileText className="mr-2 h-4 w-4" />
                     Export Data
-                  </AccentButton>
+                  </Button>
                 </SettingItem>
 
                 <SettingItem title="Privacy Policy" description="Read our privacy policy and terms of service">
-                  <AccentButton className="border border-zinc-700 bg-zinc-800 hover:bg-zinc-700">
+                  {' '}
+                  <Button variant="outline" className="border-zinc-700 bg-zinc-800 hover:bg-zinc-700">
                     <ExternalLink className="mr-2 h-4 w-4" />
                     View Policy
-                  </AccentButton>
+                  </Button>
                 </SettingItem>
               </CardContent>
             )}

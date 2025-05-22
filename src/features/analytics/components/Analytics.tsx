@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 
 import { motion } from 'motion/react';
-import { AccentButton } from '@/components/custom';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { SparklesEffect } from '@/components/ui/sparkles-effect';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Calendar, BarChart3, LineChart, PieChart, Download, Clock, Clipboard, ChevronDown } from 'lucide-react';
@@ -49,10 +50,10 @@ export const Analytics = () => {
               </button>
             ))}
           </div>
-          <AccentButton className="border border-zinc-700 bg-zinc-800 hover:bg-zinc-700">
+          <Button variant="outline" className="border-zinc-700 bg-zinc-800 hover:bg-zinc-700">
             <Download className="mr-2 h-4 w-4" />
             Export Data
-          </AccentButton>
+          </Button>
         </div>
       </motion.div>
 
@@ -105,9 +106,12 @@ export const Analytics = () => {
                   <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#4CAF50]/10">
                     {stat.icon}
                   </div>
-                  <span className={`text-xs font-medium ${stat.positive ? 'text-green-400' : 'text-red-400'}`}>
+                  <Badge
+                    variant="outline"
+                    className={`${stat.positive ? 'bg-[#4CAF50]/10 text-[#4CAF50]' : 'bg-red-500/10 text-red-400'}`}
+                  >
                     {stat.change}
-                  </span>
+                  </Badge>
                 </div>
                 <h3 className="mt-3 text-sm font-medium text-zinc-400">{stat.title}</h3>
                 <p className="mt-1 text-3xl font-bold">{stat.value}</p>
@@ -156,9 +160,9 @@ export const Analytics = () => {
                   <p className="text-sm font-medium">Average Mood: 7.8/10</p>
                   <p className="text-xs text-zinc-400">Trending upward from 6.3 last {timeRange}</p>
                 </div>
-                <button className="rounded-md border border-zinc-700 bg-zinc-800 px-3 py-1 text-xs hover:bg-zinc-700">
+                <Button variant="outline" size="sm" className="border-zinc-700 bg-zinc-800 hover:bg-zinc-700">
                   View Details
-                </button>
+                </Button>
               </div>
             </CardContent>
           </Card>
@@ -202,9 +206,9 @@ export const Analytics = () => {
                   <p className="text-sm font-medium">Most Active: Tuesdays</p>
                   <p className="text-xs text-zinc-400">Avg. session length: 30 mins</p>
                 </div>
-                <button className="rounded-md border border-zinc-700 bg-zinc-800 px-3 py-1 text-xs hover:bg-zinc-700">
+                <Button variant="outline" size="sm" className="border-zinc-700 bg-zinc-800 hover:bg-zinc-700">
                   View Details
-                </button>
+                </Button>
               </div>
             </CardContent>
           </Card>
@@ -293,7 +297,9 @@ export const Analytics = () => {
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <p className="text-sm font-medium">Anxiety Management</p>
-                    <p className="text-xs font-medium text-[#4CAF50]">75%</p>
+                    <Badge variant="outline" className="bg-[#4CAF50]/10 text-[#4CAF50]">
+                      75%
+                    </Badge>
                   </div>
                   <div className="h-2 w-full rounded-full bg-zinc-700">
                     <div
@@ -306,7 +312,9 @@ export const Analytics = () => {
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <p className="text-sm font-medium">Sleep Quality</p>
-                    <p className="text-xs font-medium text-[#4CAF50]">60%</p>
+                    <Badge variant="outline" className="bg-[#4CAF50]/10 text-[#4CAF50]">
+                      60%
+                    </Badge>
                   </div>
                   <div className="h-2 w-full rounded-full bg-zinc-700">
                     <div
@@ -319,7 +327,9 @@ export const Analytics = () => {
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <p className="text-sm font-medium">Stress Reduction</p>
-                    <p className="text-xs font-medium text-[#4CAF50]">80%</p>
+                    <Badge variant="outline" className="bg-[#4CAF50]/10 text-[#4CAF50]">
+                      80%
+                    </Badge>
                   </div>
                   <div className="h-2 w-full rounded-full bg-zinc-700">
                     <div
@@ -332,7 +342,9 @@ export const Analytics = () => {
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <p className="text-sm font-medium">Self-Compassion</p>
-                    <p className="text-xs font-medium text-[#4CAF50]">65%</p>
+                    <Badge variant="outline" className="bg-[#4CAF50]/10 text-[#4CAF50]">
+                      65%
+                    </Badge>
                   </div>
                   <div className="h-2 w-full rounded-full bg-zinc-700">
                     <div
@@ -347,7 +359,9 @@ export const Analytics = () => {
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
                         <p className="text-sm font-medium">Emotional Regulation</p>
-                        <p className="text-xs font-medium text-[#4CAF50]">70%</p>
+                        <Badge variant="outline" className="bg-[#4CAF50]/10 text-[#4CAF50]">
+                          70%
+                        </Badge>
                       </div>
                       <div className="h-2 w-full rounded-full bg-zinc-700">
                         <div
@@ -360,7 +374,9 @@ export const Analytics = () => {
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
                         <p className="text-sm font-medium">Mindfulness Practice</p>
-                        <p className="text-xs font-medium text-[#4CAF50]">55%</p>
+                        <Badge variant="outline" className="bg-[#4CAF50]/10 text-[#4CAF50]">
+                          55%
+                        </Badge>
                       </div>
                       <div className="h-2 w-full rounded-full bg-zinc-700">
                         <div
@@ -418,9 +434,9 @@ export const Analytics = () => {
         <Card className="border-zinc-800 bg-zinc-900/50 backdrop-blur-sm">
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle>Wellness Journal</CardTitle>
-            <AccentButton className="border border-zinc-700 bg-zinc-800 hover:bg-zinc-700">
+            <Button variant="outline" className="border-zinc-700 bg-zinc-800 hover:bg-zinc-700">
               View All Entries
-            </AccentButton>
+            </Button>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">

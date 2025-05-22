@@ -12,7 +12,7 @@ const TherapyPage: NextPage = () => {
     <div className="flex min-h-screen flex-col bg-black text-white">
       <ResizableNavbar />
 
-      <div className="relative flex flex-1 items-center justify-center pt-24 md:pt-32 md:pb-21">
+      <div className="md:pb-21 relative flex flex-1 items-center justify-center pt-24 md:pt-32">
         <GalaxySpots count={30} />
 
         <Therapy />
