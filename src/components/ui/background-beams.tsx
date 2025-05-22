@@ -3,9 +3,9 @@ import React from 'react';
 
 export const BackgroundBeams = ({
   position = 'center',
-  opacity = 0.15,
-  size = '70%',
-  blur = '150px',
+  opacity = 0.95,
+  size = '100%',
+  blur = '5px',
 }: {
   position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'center';
   opacity?: number;
