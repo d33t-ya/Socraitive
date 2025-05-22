@@ -116,7 +116,7 @@ export const Reports = () => {
                       <FileText className="h-6 w-6 text-[#4CAF50]" />
                     </div>
                     <div>
-                      <h3 className="font-medium">{report.title}</h3>
+                      <h3 className="mb-2 font-medium text-zinc-100">{report.title}</h3>
                       <p className="text-xs text-zinc-400">
                         {report.date} · {report.duration} · Mood change: {report.moodBefore} → {report.moodAfter}
                       </p>
@@ -131,12 +131,12 @@ export const Reports = () => {
                   <CardContent className="border-t border-zinc-700 px-4 py-4">
                     <div className="space-y-6">
                       <div>
-                        <h4 className="mb-2 font-medium">Session Summary</h4>
+                        <h4 className="mb-2 font-medium text-zinc-100">Session Summary</h4>
                         <p className="text-sm text-zinc-300">{report.summary}</p>
                       </div>
 
                       <div>
-                        <h4 className="mb-2 font-medium">Key Insights</h4>
+                        <h4 className="mb-2 font-medium text-zinc-100">Key Insights</h4>
                         <ul className="list-inside list-disc space-y-1">
                           {report.insights.map((insight, i) => (
                             <li key={i} className="text-sm text-zinc-300">
@@ -147,7 +147,7 @@ export const Reports = () => {
                       </div>
 
                       <div>
-                        <h4 className="mb-2 font-medium">Recommendations</h4>
+                        <h4 className="mb-2 font-medium text-zinc-100">Recommendations</h4>
                         <ul className="list-inside list-disc space-y-1">
                           {report.recommendations.map((rec, i) => (
                             <li key={i} className="text-sm text-zinc-300">

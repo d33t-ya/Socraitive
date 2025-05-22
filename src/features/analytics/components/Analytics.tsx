@@ -50,7 +50,7 @@ export const Analytics = () => {
               </button>
             ))}
           </div>
-          <Button variant="outline" className="border-zinc-700 bg-zinc-800 hover:bg-zinc-700">
+          <Button variant="outline" className="border-zinc-700 bg-zinc-800 hover:bg-zinc-700 hover:text-white">
             <Download className="mr-2 h-4 w-4" />
             Export Data
           </Button>
@@ -107,14 +107,14 @@ export const Analytics = () => {
                     {stat.icon}
                   </div>
                   <Badge
-                    variant="outline"
+                    variant="default"
                     className={`${stat.positive ? 'bg-[#4CAF50]/10 text-[#4CAF50]' : 'bg-red-500/10 text-red-400'}`}
                   >
                     {stat.change}
                   </Badge>
                 </div>
                 <h3 className="mt-3 text-sm font-medium text-zinc-400">{stat.title}</h3>
-                <p className="mt-1 text-3xl font-bold">{stat.value}</p>
+                <p className="mt-1 text-3xl font-bold text-zinc-200">{stat.value}</p>
               </CardContent>
             </Card>
           </motion.div>
@@ -132,7 +132,7 @@ export const Analytics = () => {
         >
           <Card className="border-zinc-800 bg-zinc-900/50 backdrop-blur-sm">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-lg font-medium">Mood Tracking</CardTitle>
+              <CardTitle className="text-lg font-medium text-zinc-100">Mood Tracking</CardTitle>
               <div className="flex items-center gap-2">
                 <button
                   className="rounded-full p-1 text-zinc-400 hover:bg-zinc-800 hover:text-white"
@@ -160,7 +160,11 @@ export const Analytics = () => {
                   <p className="text-sm font-medium">Average Mood: 7.8/10</p>
                   <p className="text-xs text-zinc-400">Trending upward from 6.3 last {timeRange}</p>
                 </div>
-                <Button variant="outline" size="sm" className="border-zinc-700 bg-zinc-800 hover:bg-zinc-700">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="bg-[#4CAF50]/20 text-[#4CAF50] hover:bg-[#4CAF50]/10 hover:text-[#4CAF50]"
+                >
                   View Details
                 </Button>
               </div>
@@ -177,7 +181,7 @@ export const Analytics = () => {
         >
           <Card className="border-zinc-800 bg-zinc-900/50 backdrop-blur-sm">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-lg font-medium">Session Frequency</CardTitle>
+              <CardTitle className="text-lg font-medium text-zinc-100">Session Frequency</CardTitle>
               <div className="flex items-center gap-2">
                 <button
                   className="rounded-full p-1 text-zinc-400 hover:bg-zinc-800 hover:text-white"
@@ -206,7 +210,11 @@ export const Analytics = () => {
                   <p className="text-sm font-medium">Most Active: Tuesdays</p>
                   <p className="text-xs text-zinc-400">Avg. session length: 30 mins</p>
                 </div>
-                <Button variant="outline" size="sm" className="border-zinc-700 bg-zinc-800 hover:bg-zinc-700">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="bg-[#4CAF50]/20 text-[#4CAF50] hover:bg-[#4CAF50]/10 hover:text-[#4CAF50]"
+                >
                   View Details
                 </Button>
               </div>
@@ -223,7 +231,7 @@ export const Analytics = () => {
         >
           <Card className="border-zinc-800 bg-zinc-900/50 backdrop-blur-sm">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-lg font-medium">Session Topics</CardTitle>
+              <CardTitle className="text-lg font-medium text-zinc-100">Session Topics</CardTitle>
               <div className="flex items-center gap-2">
                 <button
                   className="rounded-full p-1 text-zinc-400 hover:bg-zinc-800 hover:text-white"
@@ -245,7 +253,7 @@ export const Analytics = () => {
                   </p>
                 </div>
               </div>
-              <div className="mt-4 grid grid-cols-2 gap-2">
+              <div className="mt-4 grid text-zinc-200 grid-cols-2 gap-2">
                 <div className="flex items-center gap-2">
                   <div className="h-3 w-3 rounded-full bg-[#4CAF50]"></div>
                   <span className="text-xs">Anxiety (35%)</span>
@@ -280,7 +288,7 @@ export const Analytics = () => {
         >
           <Card className="border-zinc-800 bg-zinc-900/50 backdrop-blur-sm">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-lg font-medium">Progress Indicators</CardTitle>
+              <CardTitle className="text-lg font-medium text-zinc-100">Progress Indicators</CardTitle>
               <div className="flex items-center gap-2">
                 <button
                   className="rounded-full p-1 text-zinc-400 hover:bg-zinc-800 hover:text-white"
@@ -293,7 +301,7 @@ export const Analytics = () => {
               </div>
             </CardHeader>
             <CardContent className="px-6 pb-6">
-              <div className="space-y-4">
+              <div className="space-y-4 text-zinc-300">
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <p className="text-sm font-medium">Anxiety Management</p>
@@ -395,7 +403,7 @@ export const Analytics = () => {
 
       {/* Insights */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }}>
-        <Card className="border-zinc-800 bg-zinc-900/50 backdrop-blur-sm">
+        <Card className="border-zinc-800 bg-zinc-900/50 backdrop-blur-sm text-zinc-100">
           <CardHeader>
             <CardTitle>AI Generated Insights</CardTitle>
           </CardHeader>
@@ -431,7 +439,7 @@ export const Analytics = () => {
 
       {/* Journal Entries Analysis */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }}>
-        <Card className="border-zinc-800 bg-zinc-900/50 backdrop-blur-sm">
+        <Card className="border-zinc-800 bg-zinc-900/50 backdrop-blur-sm text-zinc-100">
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle>Wellness Journal</CardTitle>
             <Button variant="outline" className="border-zinc-700 bg-zinc-800 hover:bg-zinc-700">

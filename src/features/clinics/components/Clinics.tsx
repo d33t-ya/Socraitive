@@ -15,7 +15,6 @@ import {
   Star,
   ExternalLink,
   MapIcon,
-  ListFilter,
   LayoutGrid,
   Map,
 } from 'lucide-react';
@@ -196,7 +195,7 @@ export const Clinics = () => {
                       <MapPin className="h-10 w-10 text-[#4CAF50]/50" />
                     </div>
                     <div className="absolute right-4 top-4">
-                      <Badge variant="outline" className="bg-[#4CAF50]/10 text-[#4CAF50]">
+                      <Badge variant="default" className="bg-[#4CAF50]/10 text-[#4CAF50]">
                         {clinic.distance} miles away
                       </Badge>
                     </div>
@@ -204,7 +203,7 @@ export const Clinics = () => {
                   <CardHeader>
                     <div className="flex items-start justify-between">
                       <div>
-                        <CardTitle className="text-lg">{clinic.name}</CardTitle>
+                        <CardTitle className="text-lg text-zinc-100">{clinic.name}</CardTitle>
                         <div className="mt-1 flex items-center text-sm text-zinc-400">
                           <Star className="mr-1 h-4 w-4 text-yellow-500" />
                           <span>
@@ -212,21 +211,6 @@ export const Clinics = () => {
                           </span>
                         </div>
                       </div>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="h-8 w-8 border-zinc-700 bg-zinc-800 p-0 hover:border-[#4CAF50] hover:bg-[#4CAF50]/10"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleClinicClick(clinic.id);
-                        }}
-                      >
-                        {selectedClinic === clinic.id ? (
-                          <ChevronDown className="h-4 w-4" />
-                        ) : (
-                          <ChevronDown className="h-4 w-4" />
-                        )}
-                      </Button>
                     </div>
                   </CardHeader>
                   <CardContent className="space-y-4">
@@ -261,13 +245,25 @@ export const Clinics = () => {
                     </div>
                   </CardContent>
                   <CardFooter className="flex justify-between border-t border-zinc-800 px-6 py-4">
-                    <Button variant="ghost" size="sm" className="text-[#4CAF50]">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="bg-[#4CAF50]/20 text-[#4CAF50] hover:bg-[#4CAF50]/10 hover:text-[#4CAF50]"
+                    >
                       <PhoneCall className="mr-1 h-4 w-4" /> Call
                     </Button>
-                    <Button variant="ghost" size="sm" className="text-[#4CAF50]">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="bg-[#4CAF50]/20 text-[#4CAF50] hover:bg-[#4CAF50]/10 hover:text-[#4CAF50]"
+                    >
                       <Globe className="mr-1 h-4 w-4" /> Website
                     </Button>
-                    <Button variant="ghost" size="sm" className="text-[#4CAF50]">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="bg-[#4CAF50]/20 text-[#4CAF50] hover:bg-[#4CAF50]/10 hover:text-[#4CAF50]"
+                    >
                       <ExternalLink className="mr-1 h-4 w-4" /> Directions
                     </Button>
                   </CardFooter>
@@ -305,9 +301,6 @@ export const Clinics = () => {
 
           <div className="space-y-4 md:col-span-1">
             <Card className="border-zinc-800 bg-zinc-900/50 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-lg">Selected Clinic</CardTitle>
-              </CardHeader>
               <CardContent className="space-y-4">
                 {selectedClinic ? (
                   <div className="space-y-4">
@@ -359,36 +352,6 @@ export const Clinics = () => {
                 )}
               </CardContent>
             </Card>
-
-            <Card className="border-zinc-800 bg-zinc-900/50 backdrop-blur-sm">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm">Nearby Clinics</CardTitle>
-              </CardHeader>
-              <CardContent className="max-h-60 space-y-2 overflow-y-auto">
-                {mockClinics.slice(0, 5).map((clinic) => (
-                  <Button
-                    key={clinic.id}
-                    variant={selectedClinic === clinic.id ? 'accent' : 'ghost'}
-                    className={`w-full justify-start text-left ${
-                      selectedClinic === clinic.id ? 'bg-[#4CAF50] text-white' : 'hover:bg-zinc-800'
-                    }`}
-                    onClick={() => setSelectedClinic(clinic.id)}
-                  >
-                    <div className="flex w-full items-center justify-between">
-                      <span className="line-clamp-1">{clinic.name}</span>
-                      <Badge
-                        variant="outline"
-                        className={
-                          selectedClinic === clinic.id ? 'bg-white/10 text-white' : 'bg-[#4CAF50]/10 text-[#4CAF50]'
-                        }
-                      >
-                        {clinic.distance} mi
-                      </Badge>
-                    </div>
-                  </Button>
-                ))}
-              </CardContent>
-            </Card>
           </div>
         </motion.div>
       )}
@@ -402,7 +365,7 @@ export const Clinics = () => {
                 <MapPin className="h-5 w-5 text-[#4CAF50]" />
               </div>
               <div className="ml-4">
-                <h3 className="font-medium">Enable Location Services</h3>
+                <h3 className="font-medium text-zinc-200 mb-2">Enable Location Services</h3>
                 <p className="text-sm text-zinc-400">
                   Allow access to your location to find the nearest therapy centers and support groups
                 </p>

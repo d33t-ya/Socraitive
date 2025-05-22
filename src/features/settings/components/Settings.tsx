@@ -90,7 +90,7 @@ export const Settings = () => {
       <div className="space-y-6">
         {/* Account Settings */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-          <Card className="border-zinc-800 bg-zinc-900/50 backdrop-blur-sm">
+          <Card className="border-zinc-800 bg-zinc-900/50 text-zinc-100 backdrop-blur-sm">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <div className="flex items-center space-x-3">
                 <User className="h-5 w-5 text-[#4CAF50]" />
@@ -162,7 +162,7 @@ export const Settings = () => {
 
         {/* Notifications */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-          <Card className="border-zinc-800 bg-zinc-900/50 backdrop-blur-sm">
+          <Card className="border-zinc-800 bg-zinc-900/50 text-zinc-100 backdrop-blur-sm">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <div className="flex items-center space-x-3">
                 <Bell className="h-5 w-5 text-[#4CAF50]" />
@@ -204,7 +204,7 @@ export const Settings = () => {
 
         {/* Privacy & Data */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
-          <Card className="border-zinc-800 bg-zinc-900/50 backdrop-blur-sm">
+          <Card className="border-zinc-800 bg-zinc-900/50 text-zinc-100 backdrop-blur-sm">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <div className="flex items-center space-x-3">
                 <Shield className="h-5 w-5 text-[#4CAF50]" />
@@ -252,7 +252,7 @@ export const Settings = () => {
 
         {/* Appearance */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
-          <Card className="border-zinc-800 bg-zinc-900/50 backdrop-blur-sm">
+          <Card className="border-zinc-800 bg-zinc-900/50 text-zinc-100 backdrop-blur-sm">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <div className="flex items-center space-x-3">
                 <Globe className="h-5 w-5 text-[#4CAF50]" />

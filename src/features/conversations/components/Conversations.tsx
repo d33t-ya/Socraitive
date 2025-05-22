@@ -16,6 +16,7 @@ import {
   Clock,
   CheckCircle2,
   AlertCircle,
+  ArrowRight,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -142,9 +143,9 @@ export const Conversations = () => {
               >
                 <CardContent className="p-4">
                   <div className="mb-2 flex items-center justify-between">
-                    <h3 className="font-medium">{convo.title}</h3>
+                    <h3 className="font-medium text-zinc-100">{convo.title}</h3>
                     <Badge
-                      variant="outline"
+                      variant="default"
                       className={
                         convo.mood === 'Positive'
                           ? 'bg-[#4CAF50]/10 text-[#4CAF50]'
@@ -192,7 +193,7 @@ export const Conversations = () => {
             <Card className="border-zinc-800 bg-zinc-900/50 backdrop-blur-sm">
               <CardHeader className="flex flex-row items-center justify-between">
                 <div>
-                  <CardTitle>{selectedConvo.title}</CardTitle>
+                  <CardTitle className="mb-3 text-zinc-100">{selectedConvo.title}</CardTitle>
                   <div className="mt-1 flex items-center gap-3 text-sm text-zinc-400">
                     <div className="flex items-center gap-1">
                       <Calendar className="h-3.5 w-3.5" />
@@ -206,7 +207,7 @@ export const Conversations = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <Badge
-                    variant="outline"
+                    variant="default"
                     className={
                       selectedConvo.mood === 'Positive'
                         ? 'bg-[#4CAF50]/10 text-[#4CAF50]'
@@ -220,7 +221,7 @@ export const Conversations = () => {
                   <Button
                     variant="outline"
                     size="icon"
-                    className="h-8 w-8 border-zinc-700 bg-zinc-800 hover:bg-zinc-700"
+                    className="h-8 w-8 border-zinc-700 bg-zinc-800 text-white hover:bg-zinc-700 hover:text-white"
                   >
                     <Download className="h-4 w-4" />
                   </Button>
@@ -228,20 +229,7 @@ export const Conversations = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-6">
-                  <div className="rounded-md border border-zinc-800 bg-zinc-900/80 p-4">
-                    <h3 className="mb-2 text-sm font-medium text-[#4CAF50]">Key Insights</h3>
-                    <ul className="space-y-2">
-                      {selectedConvo.insights.map((insight, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm">
-                          <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#4CAF50]" />
-                          <span>{insight}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
                   <div className="space-y-4">
-                    <h3 className="text-sm font-medium">Conversation Summary</h3>
                     <div className="space-y-4">
                       {selectedConvo.messages.map((message, i) => (
                         <div
@@ -274,8 +262,11 @@ export const Conversations = () => {
                   <Heart className="h-4 w-4 text-rose-500" />
                   <span className="text-sm text-zinc-400">Added to favorites</span>
                 </div>
-                <Button variant="outline" className="border-zinc-700 bg-zinc-800 hover:bg-zinc-700">
-                  Continue Session
+                <Button
+                  variant="outline"
+                  className="bg-[#4CAF50]/20 text-[#4CAF50] hover:bg-[#4CAF50]/10 hover:text-[#4CAF50]"
+                >
+                  Continue Session <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </CardFooter>
             </Card>
